@@ -1,0 +1,89 @@
+{
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "jsvuegunui",
+  "version": "0.0.1",
+  "description": "A simple Node app with gundb as a database management system, instantly up and running.",
+  "main": "main.js",
+  "scripts": {
+    "start": "webpack && babel-node main.js --presets env --host 0.0.0.0",
+    "watch": "webpack --watch"
+  },
+  "dependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.4",
+    "babel-plugin-component": "1.1.1",
+    "babel-plugin-module-resolver": "3.1.1",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "browser-sync": "2.24.4",
+    "css-loader": "0.28.11",
+    "curl": "0.1.4",
+    "dotenv": "5.0.1",
+    "ejs": "2.6.1",
+    "express": "4.16.3",
+    "file-loader": "1.1.11",
+    "gulp": "3.9.1",
+    "gulp-live-server": "0.0.31",
+    "gun": "^0.9.99993",
+    "gun-mongo": "0.1.2",
+    "helmet": "3.12.1",
+    "img-loader": "^3.0.0",
+    "jquery": "3.3.1",
+    "jquery-ui": "1.12.1",
+    "lodash": "4.17.10",
+    "moment": "2.22.2",
+    "node-sass": "4.9.0",
+    "raw-loader": "0.5.1",
+    "sass-loader": "^7.0.3",
+    "style-loader": "0.21.0",
+    "url-loader": "^1.1.1",
+    "vue": "^2.5.17",
+    "vue-gun": "0.0.3",
+    "vue-loader": "^15.4.2",
+    "vue-style-loader": "^4.1.2",
+    "webpack": "^4.12.0",
+    "webpack-bundle-analyzer": "^3.0.2",
+    "webpack-cli": "2.1.5",
+    "webpack-node-externals": "1.7.2"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/hello-sqlite"
+  },
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "modules": false
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ],
+          "alias": {}
+        }
+      ]
+    ]
+  },
+  "keywords": [
+    "node",
+    "glitch",
+    "express",
+    "gundb"
+  ],
+  "devDependencies": {
+    "vue-template-compiler": "^2.5.17"
+  }
+}

@@ -1,0 +1,9 @@
+.env
+backend.js
+data.json
+node_modules/
+package-lock.json
+public/bundle.js
+public/*.png
+rundb.bat
+.vscode/
