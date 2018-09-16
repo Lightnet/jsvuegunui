@@ -105,5 +105,10 @@ export default {
 </script>
 
 <style>
+body {
+    font:12px 'Courier New';
+    color: #222;
+}
+
 
 </style>

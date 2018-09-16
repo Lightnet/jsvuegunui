@@ -21,26 +21,18 @@
     </div>
 </template>
 <script>
-//import AccountInfo from './AccountInfo.vue';
-//import IndexNav from './IndexNav.vue';
 
 export default {
     components: {
     },
     data() {
         return {
-            username: 'Guest',
-            pubid:'',
             question1:'',
             question2:'',
             hint:'',
         }
     },
     created(){
-        var user = this.$gun.user();
-        console.log(user);
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
         this.getchangehint();
     },
     methods: {

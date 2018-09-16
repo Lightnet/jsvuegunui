@@ -2,19 +2,33 @@
     <div>
         <accountinfo></accountinfo>
         <indexnav></indexnav>
-        <div>
-            Account
-        </div>
+        
+        Account
+        
+        <accountpassphrasehint></accountpassphrasehint>
+        <accountchangepassphrase></accountchangepassphrase>
+        <accountprofile></accountprofile>
     </div>
 </template>
 
 <script>
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
+
+import AccountChangePassPhrase from './gaccount/AccountChangePassPhrase.vue';
+import AccountPassPhraseHint from './gaccount/AccountPassPhraseHint.vue';
+
+import AccountProfile from './gaccount/AccountProfile.vue';
+import AccountSearch from './gaccount/AccountSearch.vue';
+
 export default {
     components: {
         'indexnav':IndexNav,
         'accountinfo':AccountInfo,
+        'accountprofile':AccountProfile,
+        'accountsearch':AccountSearch,
+        'accountchangepassphrase':AccountChangePassPhrase,
+        'accountpassphrasehint':AccountPassPhraseHint,
     },
     data() {
         return {

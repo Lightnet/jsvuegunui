@@ -1,7 +1,6 @@
 <template>
     <div>
-        <div class="">Public ID: {{ pubid }}</div>
-        <div class="">User: {{ username }}</div>
+        <Label>Alias:{{ username }}</Label><button @click="copykey">Copy Public Key</button><input id="currentowneraliaspulbickey" v-model="pubid" size="90" readonly>
     </div>
 </template>
 
@@ -24,7 +23,11 @@ export default {
         this.pubid = user.is.pub;
     },
     methods: {
-
+        copykey(){
+            let CodeToCopy = document.querySelector('#currentowneraliaspulbickey');
+            CodeToCopy.select();
+            document.execCommand('copy');
+        }
     }
 }
 </script>

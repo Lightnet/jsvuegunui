@@ -1,5 +1,6 @@
 <template>
     <div>
+        Alias Search
         <table>
         <tr>
             <td>Public Key</td>

@@ -33,10 +33,10 @@ import 'gun/sea';
 import 'gun/nts';
 import 'gun/lib/time';
 import 'gun/lib/path';
-//import 'gun/lib/load';
+import 'gun/lib/load';
 import 'gun/lib/open';
 import 'gun/lib/then';
-//import 'gun/lib/unset';
+import 'gun/lib/unset';
 
 import App from "./App.vue";
 

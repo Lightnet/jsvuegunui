@@ -17,7 +17,6 @@
     </div>
 </template>
 <script>
-//import IndexNav from './IndexNav.vue';
 export default {
     components: {
     },

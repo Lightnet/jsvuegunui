@@ -3,8 +3,10 @@
         <accountinfo></accountinfo>
         <indexnav></indexnav>
         
-        <AlphaTest></AlphaTest>
+        
+        <AliasContacts></AliasContacts>
         <!--
+        <AlphaTest></AlphaTest>
         <accountpassphrasehint></accountpassphrasehint>
         <accountchangepassphrase></accountchangepassphrase>
         <accountprofile></accountprofile>
@@ -17,30 +19,31 @@
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
 
-import AccountChangePassPhrase from './AccountChangePassPhrase.vue';
-import AccountPassPhraseHint from './AccountPassPhraseHint.vue';
+import AccountChangePassPhrase from './gaccount/AccountChangePassPhrase.vue';
+import AccountPassPhraseHint from './gaccount/AccountPassPhraseHint.vue';
+import AccountProfile from './gaccount/AccountProfile.vue';
+import AccountSearch from './gaccount/AccountSearch.vue';
 
-import AccountProfile from './AccountProfile.vue';
-import AccountSearch from './AccountSearch.vue';
-
+import AliasContacts from './gaccount/AliasContacts.vue';
 import AlphaTest from './AlphaTest.vue';
-
 
 export default {
     components: {
         'indexnav':IndexNav,
         'accountinfo':AccountInfo,
-        'accountprofile':AccountProfile,
-        'accountsearch':AccountSearch,
+        //'accountprofile':AccountProfile,
+        //'accountsearch':AccountSearch,
 
-        'accountchangepassphrase':AccountChangePassPhrase,
-        'accountpassphrasehint':AccountPassPhraseHint,
-        AlphaTest
+        //'accountchangepassphrase':AccountChangePassPhrase,
+        //'accountpassphrasehint':AccountPassPhraseHint,
+        AlphaTest,
+        AliasContacts,
+
     },
     data() {
         return {
-            username: 'Guest',
-            pubid:''
+            //username: 'Guest',
+            //pubid:''
         }
     },
     created(){
