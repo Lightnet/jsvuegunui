@@ -110,5 +110,9 @@ body {
     color: #222;
 }
 
+button {
+    font:12px 'Courier New';
+}
+
 
 </style>
