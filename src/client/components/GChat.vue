@@ -4,6 +4,7 @@
         <indexnav></indexnav>
         <div>
             Chat
+            <ChatRoom></ChatRoom>
         </div>
     </div>
 </template>
@@ -11,10 +12,13 @@
 <script>
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
+
+import ChatRoom from './gchat/ChatRoom.vue';
 export default {
     components: {
         'indexnav':IndexNav,
         'accountinfo':AccountInfo,
+        ChatRoom
     },
     data() {
         return {

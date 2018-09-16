@@ -31,7 +31,7 @@ import Gun from 'gun/gun';//browser
 import 'gun/sea';
 //custom chain gun.js
 import 'gun/nts';
-//import 'gun/lib/time';
+import 'gun/lib/time';
 import 'gun/lib/path';
 //import 'gun/lib/load';
 import 'gun/lib/open';
