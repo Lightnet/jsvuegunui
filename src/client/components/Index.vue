@@ -3,9 +3,10 @@
         <accountinfo></accountinfo>
         <indexnav></indexnav>
         
+        <BottomBar />
+        <!--
         
         <AliasContacts></AliasContacts>
-        <!--
         <AlphaTest></AlphaTest>
         <accountpassphrasehint></accountpassphrasehint>
         <accountchangepassphrase></accountchangepassphrase>
@@ -18,13 +19,14 @@
 <script>
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
+import BottomBar from './BottomBar'
 
-import AccountChangePassPhrase from './gaccount/AccountChangePassPhrase.vue';
-import AccountPassPhraseHint from './gaccount/AccountPassPhraseHint.vue';
-import AccountProfile from './gaccount/AccountProfile.vue';
-import AccountSearch from './gaccount/AccountSearch.vue';
+//import AccountChangePassPhrase from './gaccount/AccountChangePassPhrase.vue';
+//import AccountPassPhraseHint from './gaccount/AccountPassPhraseHint.vue';
+//import AccountProfile from './gaccount/AccountProfile.vue';
+//import AccountSearch from './gaccount/AccountSearch.vue';
 
-import AliasContacts from './gaccount/AliasContacts.vue';
+//import AliasContacts from './gaccount/AliasContacts.vue';
 import AlphaTest from './AlphaTest.vue';
 
 export default {
@@ -36,8 +38,9 @@ export default {
 
         //'accountchangepassphrase':AccountChangePassPhrase,
         //'accountpassphrasehint':AccountPassPhraseHint,
+        //AliasContacts,
+        BottomBar,
         AlphaTest,
-        AliasContacts,
 
     },
     data() {

@@ -7,3 +7,5 @@ public/bundle.js
 public/*.png
 rundb.bat
 .vscode/
+src/client/components/old/
+src/client/old/

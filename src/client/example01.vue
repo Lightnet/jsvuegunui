@@ -8,12 +8,20 @@ export default {
     return {
       msg: 'Hello world!'
     }
+  },
+  created(){
+  },
+  beforeDestroy(){
+  },
+  methods: {
   }
 }
 </script>
 
 <style>
+/*
 .example {
   color: red;
 }
+*/
 </style>
