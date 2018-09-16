@@ -3,9 +3,7 @@
         <accountinfo></accountinfo>
         <indexnav></indexnav>
         <div>
-            ToDoList
-            <input><button>Add</button>
-
+            Contacts
         </div>
     </div>
 </template>
@@ -20,14 +18,17 @@ export default {
     },
     data() {
         return {
-          todolistinput:'',
+            username: 'Guest',
+            pubid:''
         }
     },
     created(){
-        //var user = this.$gun.user();
+        var user = this.$gun.user();
         //console.log(user);
-        //this.username = user.is.alias;
-        //this.pubid = user.is.pub;
+        if (user.is == null)
+            return;
+        this.username = user.is.alias;
+        this.pubid = user.is.pub;
 
     },
     methods: {

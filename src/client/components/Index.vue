@@ -3,10 +3,9 @@
         <accountinfo></accountinfo>
         <indexnav></indexnav>
         
-
-        <accountpassphrasehint></accountpassphrasehint>
-
+        <AlphaTest></AlphaTest>
         <!--
+        <accountpassphrasehint></accountpassphrasehint>
         <accountchangepassphrase></accountchangepassphrase>
         <accountprofile></accountprofile>
         <accountsearch></accountsearch>
@@ -24,6 +23,8 @@ import AccountPassPhraseHint from './AccountPassPhraseHint.vue';
 import AccountProfile from './AccountProfile.vue';
 import AccountSearch from './AccountSearch.vue';
 
+import AlphaTest from './AlphaTest.vue';
+
 
 export default {
     components: {
@@ -34,6 +35,7 @@ export default {
 
         'accountchangepassphrase':AccountChangePassPhrase,
         'accountpassphrasehint':AccountPassPhraseHint,
+        AlphaTest
     },
     data() {
         return {

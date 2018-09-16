@@ -1,3 +1,4 @@
+localStorage.clear(); //clear database for gun
 
 import Vue from 'vue';
 //import Vue from 'vue/dist/vue.runtime.common.js';
