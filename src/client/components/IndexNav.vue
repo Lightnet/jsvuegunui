@@ -60,7 +60,7 @@ export default {
 <style>
 .GNavBar{
     height:30px;
-    /*background-color:lightblue;*/
+    background-color:lightblue;
     margin: 0px;
     /*margin-top: 20px*/
 }

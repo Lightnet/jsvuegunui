@@ -107,7 +107,7 @@ export default {
             let hint = hint = await to.get('hint').then();
             let dec = await Gun.SEA.work(q1,q2);//get q1 and q2 string to key hash
             hint = await Gun.SEA.decrypt(hint,dec);//get hint and key decrypt message
-            console.log('hint',hint);
+            //console.log('hint',hint);
             if(hint !=null){//check if hint is string or null
                 //$('#hint').val(hint);//get hint and set input value
                 this.hint = hint;
@@ -116,8 +116,6 @@ export default {
                 this.hint = 'Fail Decrypt!';
             }
             console.log("end checked...");
-
-
         },
         clickCancel(){
             this.$parent.$emit('view','access');

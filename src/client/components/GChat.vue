@@ -2,10 +2,7 @@
     <div>
         <accountinfo></accountinfo>
         <indexnav></indexnav>
-        <div>
-            Chat Room
-            <ChatRoom></ChatRoom>
-        </div>
+        <ChatRoom></ChatRoom>
     </div>
 </template>
 
@@ -22,19 +19,17 @@ export default {
     },
     data() {
         return {
-            username: 'Guest',
-            pubid:''
+            //username: 'Guest',
+            //pubid:''
         }
     },
     created(){
-        var user = this.$gun.user();
-        console.log(user);
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
-
+        //var user = this.$gun.user();
+        //console.log(user);
+        //this.username = user.is.alias;
+        //this.pubid = user.is.pub;
     },
     methods: {
-        
     }
 }
 </script>

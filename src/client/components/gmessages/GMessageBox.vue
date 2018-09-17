@@ -1,40 +1,26 @@
 <template>
     <div>
-        <label>Private Message:</label>
-        <table>
-            <tr>
-                <td> Contact: </td><td> 
-                    <select v-model="selectitem" @change="selectcontact">
+        <div id="chatmessagebox" class="col-container" style="">
+            <div id="messagebox" class="col" style="background-color:#aaa;overflow-y: scroll;">
+                <div v-for="item in messages" :key="item.id">
+                    {{ item.alias }} | > | {{ item.message }}
+                </div>
+            </div>
+            <div class="col" style="width:100px; background-color:#bbb;"></div>
+        </div>
+        <div style="height:70px;width:100%;background-color:gray;">
+            Contact:<select v-model="selectitem" @change="selectcontact">
                         <option selected="true"> None </option>
                         <option v-for="item in contacts" :key="item.id" v-bind:value="item.pub"> {{item.alias}}</option>
-                    </select> 
-                </td>
-            </tr><tr>
-                <td> Public Key: </td><td> 
-                    <input v-model="publickey" v-on:keyup="checkalias">  <button @click="addcontact">Add</button> <button @click="removecontact">Remove</button><label>Status:{{statussearch}}</label>
-                </td>
-            </tr><tr>
-                <td> Subject: </td><td> <input v-model="messagesubject"> </td>
-            </tr><tr>
-                <td> Content: </td><td> <textarea v-model="messagecontent"> </textarea></td>
-            </tr><tr>
-                <td> </td><td> <button @click="sendprivatemessage">Send</button></td>
-            </tr>
-        </table>
-
-        Messages:
-        <div>
-            <!-- 
-            <div v-for="item in messages" :key="item.id">    
-            -->
-            <div v-for="item in messages" :key="item.id">
-                {{ item.alias }} | > | {{ item.message }}
-            </div>
+                    </select>
+            Public Key:<input v-model="publickey" v-on:keyup="checkalias">  <button @click="addcontact">Add</button> <button @click="removecontact">Remove</button><label>Status:{{statussearch}}</label>
+            <br>Content:<textarea v-model="messagecontent"> </textarea> <button @click="sendprivatemessage">Send</button>
         </div>
     </div>
 </template>
 
 <script>
+import $ from 'jquery';
 //import ChatRoom from './gchat/ChatRoom.vue';
 export default {
     components: {
@@ -58,6 +44,16 @@ export default {
     },
     mounted(){
         this.UpdateContactList();
+        let $win = $(window);
+        $("#chatmessagebox").height($win.height()-140);
+        $win.on('resize',function(){
+            $("#chatmessagebox").height($win.height()-140);
+        });
+        $("#messagebox").height($win.height()-140);
+        $win.on('resize',function(){
+            $("#messagebox").height($win.height()-140);
+        });
+        
     },
     methods: {
         async sendprivatemessage(){

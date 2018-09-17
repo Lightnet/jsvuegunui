@@ -102,6 +102,22 @@ export default {
 </script>
 
 <style>
+* { padding: 0; margin: 0; }
+.parent{
+    min-height:100%;
+    width:400px;
+    margin: 0;
+	padding: 0;
+    background:red;
+}
+
+html, body, #fullheight {
+    margin: 0;
+	padding: 0;
+    min-height: 100% !important;
+    height: 100%;
+}
+
 body {
     font:16px 'Courier New';
     color: #222;
@@ -111,5 +127,11 @@ button {
     font:14px 'Courier New';
 }
 
+select{
+    font:14px 'Courier New';
+}
 
+input{
+    font:14px 'Courier New';
+}
 </style>
