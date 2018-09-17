@@ -6,7 +6,7 @@
             <table>
                 <tr>
                     <td>User:</td>
-                    <td><input v-model="alias"></td>
+                    <td><input v-model="alias"> Status:{{statusdisplay}}</td>
                 </tr><tr>
                     <td>Question 1:</td>
                     <td><input v-model="question1"></td>
@@ -19,7 +19,7 @@
                 </tr><tr>
                     <td>
                     </td><td style=" text-align: center;">
-                        <button @click="clickSubmit2">Submit</button>
+                        <button @click="clickSubmit">Submit</button>
                         <button @click="clickCancel">Cancel</button>
                     </td>
                 </tr>
@@ -31,38 +31,44 @@
 
 <script>
 export default {
+    watch:{
+        alias:async function(val){//watch input alias variable changes
+            let gun = this.$gun;
+            let alias = await gun.get('~@'+val).then(); //broken or remove?
+            console.log(alias);
+            if(!alias){
+                this.statusdisplay = 'Not Found!';
+                return;
+            }else{
+                this.statusdisplay = 'Found!';
+            }
+            let publickey = '';
+            for(var obj in alias){
+                console.log(obj);
+                publickey = obj;
+            }
+            publickey = publickey.substring(1,publickey.length);//remove ~ string begin
+            this.publickey = publickey;
+        }
+    },
     data() {
         return {
-            msg: 'Forgot!',
+            msg: 'Recover Forgot Passphase!',
+            publickey:'',
             alias:'guest',
             question1:'test',
             question2:'test',
             hint:'',
+            statusdisplay:'Normal',
         }
     },
     methods: {
-        async clickSubmit2(){
-            //let alias = (this.alias || '').trim(); //get alias input
-            let gun = this.$gun;
-            //let who = await gun.get('ze-BvHhrnMK7pWT_wQWIn9xv8dNv_jPv8kGLeatdMRQ.e0woKEJBUeYxbWQda8gkMTvKWsMVI_UaJ_Azgwyxxek').then() || {};//get alias data
-            //console.log(who)
-            //console.log(alias)
-            let alias = await gun.get('alias/'+this.alias).then();//broken or remove?
-            console.log(alias);
-            //let who = await gun.get('alias').then() || {};//get alias data
-            //let who = await gun.get('pub').then() || {};//get alias data
-            //console.log(who);
-            //var to = gun.user('ze-BvHhrnMK7pWT_wQWIn9xv8dNv_jPv8kGLeatdMRQ.e0woKEJBUeYxbWQda8gkMTvKWsMVI_UaJ_Azgwyxxek');
-            //var who = await to.get('alias').then();
-            //console.log(who);
-
-        },
         async clickSubmit(){
-            console.log("login...");
-            console.log(this.alias);
-            console.log(this.$gun);
+            console.log("Recover login...");
+            //console.log(this.alias);
+            //console.log(this.$gun);
             let gun = this.$gun;
-            
+            //let user = this.$gun.user();
             let alias = (this.alias || '').trim(); //get alias input
             let q1 =  (this.question1 || '').trim(); //get q1 input
             let q2 = (this.question2 || '').trim(); //get q2 input
@@ -74,20 +80,35 @@ export default {
             if((!q1)||(!q2)){
                 console.log('Q Empty!');
                 return;
+            }   
+            //console.log(alias);
+            //Make sure the alias and public key are working
+            alias = await gun.get('~@'+this.alias).then();//look for hash id
+            let publickey = '';
+            for(var obj in alias){
+                //console.log(obj);
+                publickey = obj;
             }
-                
-            console.log(alias);
-            let who = await gun.get('alias/'+alias).then() || {};//get alias data
-            console.log(who);
-            if(!who._){
+            publickey = publickey.substring(1,publickey.length);
+            if(!publickey){
+                return;
+            }
+            //let publickey = this.publickey;
+            let to = this.$gun.user(publickey);
+            let who = await to.get('alias').then();
+            //let who = await gun.get('alias/'+alias).then() || {};//get alias data
+            //console.log(who);
+            if(!who){
                 //console.log(who);
                 console.log('Not Alias!');
                 return;
             }
-            let hint = await gun.get('alias/'+alias).map().get('hint').then();//get hash hint string
+            //let hint = await gun.get('alias/'+alias).map().get('hint').then();//get hash hint string
+            let hint = hint = await to.get('hint').then();
             let dec = await Gun.SEA.work(q1,q2);//get q1 and q2 string to key hash
             hint = await Gun.SEA.decrypt(hint,dec);//get hint and key decrypt message
-            if(hint){//check if hint is string or null
+            console.log('hint',hint);
+            if(hint !=null){//check if hint is string or null
                 //$('#hint').val(hint);//get hint and set input value
                 this.hint = hint;
             }else{

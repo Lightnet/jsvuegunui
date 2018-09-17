@@ -4,12 +4,13 @@
         <indexnav></indexnav>
         <AliasContacts @publickey="searchuser"></AliasContacts>
         <accountsearch></accountsearch>
+        <AlphaTest></AlphaTest>
+
         <BottomBar />
 
         <!--
         <accountsearch v-model="aliaskey"></accountsearch>
         <AliasContacts></AliasContacts>
-        <AlphaTest></AlphaTest>
         <accountpassphrasehint></accountpassphrasehint>
         <accountchangepassphrase></accountchangepassphrase>
         <accountprofile></accountprofile>
