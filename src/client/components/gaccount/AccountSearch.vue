@@ -4,7 +4,10 @@
         <table>
         <tr>
             <td>Public Key</td>
-            <td><input :value="value"></td>
+            <!--
+                <input :value="value" @input="lookupalias">
+            -->
+            <td><input v-model="pubid" @input="lookupalias"></td>
         </tr>
         <tr>
             <td>Identity</td>
@@ -41,7 +44,7 @@ export default {
     watch: {
         value:function(newvalue,oldvalue){
             //console.log(this.value);
-            //console.log("update???");
+            console.log("value???");
             this.lookupalias();
         }
     },
@@ -63,8 +66,19 @@ export default {
     methods: {
         async lookupalias(event){
             console.log("looking...");
-            let to = this.$gun.user(this.vaule);
+
+
+            let to = this.$gun.user(this.pubid);
+
             let who = await to.get('alias').then();
+            if (!who){
+                this.alias = '';
+                this.identity = '';
+                this.born = '';
+                this.education = '';
+                this.skills = '';
+                return;
+            }
             this.alias = who;
 
             let identity = await to.get('alias').then();

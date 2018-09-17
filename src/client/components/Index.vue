@@ -3,10 +3,11 @@
         <accountinfo></accountinfo>
         <indexnav></indexnav>
         <AliasContacts @publickey="searchuser"></AliasContacts>
-        <accountsearch v-model="aliaskey"></accountsearch>
+        <accountsearch></accountsearch>
         <BottomBar />
 
         <!--
+        <accountsearch v-model="aliaskey"></accountsearch>
         <AliasContacts></AliasContacts>
         <AlphaTest></AlphaTest>
         <accountpassphrasehint></accountpassphrasehint>

@@ -46,7 +46,7 @@ export default {
                         //$(option).hide();//hide element
                         return;
                     }
-                    //console.log('data',data);
+                    console.log('data',data);
                     self.contacts.push({id:id,alias:data.alias,pub:data.pub});
                 }
             });
@@ -54,7 +54,7 @@ export default {
         selectcontact(event){
             //console.log("event");
             //console.log(event.target);
-            //console.log(this.selectitem);
+            console.log(this.selectitem);
             this.aliassearch = this.selectitem;
             this.checkalias();
         },
@@ -71,6 +71,7 @@ export default {
             if (this.bfound == false)
                 return;
             let user = this.$gun.user();
+            console.log(this.alias);
             user.get('contact').get(this.alias).put('null');//null contact list match id
             this.UpdateContactList();
         },
@@ -78,23 +79,27 @@ export default {
             //console.log("typing...");
             //console.log(event.target.value);
             let publickey = null;
-            if (event == null){
-                publickey = this.publickey;
-            }else{
-                publickey = event.target.value;
-            }
+            //if (event == null){
+                //publickey = this.publickey;
+            //}else{
+                //publickey = this.aliassearch;
+            //}
+            publickey = this.aliassearch;
             let to = this.$gun.user(publickey);
             let who = await to.get('alias').then();
+            console.log(who);
             if(!who){
                 this.statussearch = 'No Alias!';
                 this.bfound = false;
+                this.publickey = '';
+                this.alias = '';
                 return;
             }else{
                 this.statussearch = 'Found! ' + who;
                 this.bfound = true;
                 this.publickey = publickey;
                 this.alias = who;
-                this.$emit('publickey',this.publickey);
+                //this.$emit('publickey',this.publickey);
             }
         }
     }
