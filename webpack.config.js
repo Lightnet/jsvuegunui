@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     mode:'development',
@@ -27,6 +28,10 @@ module.exports = {
                 loaders: ['style-loader', 'raw-loader', 'sass-loader']
             },
             {
+                test: /\.vue$/,
+                use: 'vue-loader'
+            },
+            {
                 test: /\.js$/,
                 include: [
                     path.resolve(__dirname, 'src')
@@ -37,19 +42,21 @@ module.exports = {
                 }
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(jpe?g|png|gif|svg)$/i,
                 use: [
-                    {
-                        loader: 'file-loader',
-                        options: {}
-                    }
+                  'url-loader?limit=10000',
+                  'img-loader'
                 ]
             }
-      ]
+        ]
     },
+    plugins: [
+        new VueLoaderPlugin()
+    ],
     resolve: {
-        alias: { 
-            
-        }
+        alias: {
+            'vue': 'vue/dist/vue.common.js',
+        },
+        extensions: ['*', '.js', '.vue', '.json']
     }
 };
