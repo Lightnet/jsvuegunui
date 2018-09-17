@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="example">{{ msg }}</div>
-        
         <div>
             <table>
                 <tr>

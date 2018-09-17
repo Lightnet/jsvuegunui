@@ -1,6 +1,8 @@
 <template>
     <div>
-        <Label>Alias:{{ username }}</Label><button @click="copykey">Copy Public Key</button><input id="currentowneraliaspulbickey" v-model="pubid" size="90" readonly>
+        <Label>Alias:{{ username }}</Label>
+        <button @click="copykey">Copy Public Key</button>
+        <input id="currentowneraliaspulbickey" v-model="pubid" size="90" readonly>
     </div>
 </template>
 

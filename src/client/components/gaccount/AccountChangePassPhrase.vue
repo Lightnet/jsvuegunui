@@ -1,5 +1,6 @@
 <template>
     <div>
+        Change Passphrase:
         <table>
         <tr>
             <td>Passphrase</td>

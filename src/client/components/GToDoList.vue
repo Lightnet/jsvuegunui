@@ -25,8 +25,6 @@
 				Nothing left in the list. Add a new todo in the input above.
 			</p>
 		</div>
-        
-
         </div>
     </div>
 </template>
@@ -57,18 +55,10 @@ export default {
     created(){
         var user = this.$gun.user();
         //console.log(user);
-        //this.username = user.is.alias;
-        //this.pubid = user.is.pub;
-
-        //this.fetchTodo();
 		let gun = this.$root.$gun;
 		this.gun_todolist = user.get('todolist');
-
-		//console.log("thought ?");
 		let self = this;
 		this.gun_todolist.map().once(function(data, id){
-			//console.log(">>",thought,":",id);
-			//console.log('id: ',id);
 			if ((data == null)||(data == 'null'))
 				return;
 			self.todos.push({
@@ -77,7 +67,6 @@ export default {
 				bedit: false,
 			});
       	});
-
     },
     methods: {
         addTodo () {
@@ -108,12 +97,11 @@ export default {
     		return (!str || 0 === str.length);
 		},
 		editchange(event){
-			//this.gun_todolist =  this.$root.user.get('todolist');
-			//console.log(event);
+			console.log(event);
 			//console.log(event.target.id);
 			let id = event.target.id;
 			let str_text = event.target.value;
-			let user = this.$root.user;
+			let user = this.$gun.user();
 
 			//console.log(this.isEmpty(str_text));
 			if(this.isEmpty(str_text)){
@@ -121,17 +109,9 @@ export default {
 				this.$message('Empty!');
 				return;
 			}
-			//this.gun_todolist.get(id).once(function(data){
-				//console.log('data');
-				//console.log(data);
-			//});
-			//console.log('string...');
-			//console.log(id);
-			//console.log(str_text);
-			//this.$root.user.get('todolist')
 
-			this.$root.user.get('todolist').get(id).put({text:str_text},function(ack){
-				//console.log(ack);
+			user.get('todolist').get(id).put({text:str_text},function(ack){
+				console.log(ack);
 			});
 
 			this.todos.filter(todo => {

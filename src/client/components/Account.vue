@@ -2,9 +2,7 @@
     <div>
         <accountinfo></accountinfo>
         <indexnav></indexnav>
-        
         Account
-        
         <accountpassphrasehint></accountpassphrasehint>
         <accountchangepassphrase></accountchangepassphrase>
         <accountprofile></accountprofile>

@@ -2,9 +2,10 @@
     <div>
         <accountinfo></accountinfo>
         <indexnav></indexnav>
-
-        
+        <AliasContacts @publickey="searchuser"></AliasContacts>
+        <accountsearch v-model="aliaskey"></accountsearch>
         <BottomBar />
+
         <!--
         <AliasContacts></AliasContacts>
         <AlphaTest></AlphaTest>
@@ -20,13 +21,12 @@
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
 import BottomBar from './BottomBar';
-
 //import AccountChangePassPhrase from './gaccount/AccountChangePassPhrase.vue';
 //import AccountPassPhraseHint from './gaccount/AccountPassPhraseHint.vue';
 //import AccountProfile from './gaccount/AccountProfile.vue';
 //import AccountSearch from './gaccount/AccountSearch.vue';
-
-//import AliasContacts from './gaccount/AliasContacts.vue';
+import AliasContacts from './gaccount/AliasContacts.vue';
+import AccountSearch from './gaccount/AccountSearch.vue';
 import AlphaTest from './AlphaTest.vue';
 
 export default {
@@ -34,11 +34,10 @@ export default {
         'indexnav':IndexNav,
         'accountinfo':AccountInfo,
         //'accountprofile':AccountProfile,
-        //'accountsearch':AccountSearch,
-
+        'accountsearch':AccountSearch,
         //'accountchangepassphrase':AccountChangePassPhrase,
         //'accountpassphrasehint':AccountPassPhraseHint,
-        //AliasContacts,
+        AliasContacts,
         BottomBar,
         AlphaTest,
 
@@ -47,6 +46,7 @@ export default {
         return {
             //username: 'Guest',
             //pubid:''
+            aliaskey:'',
         }
     },
     created(){
@@ -56,12 +56,13 @@ export default {
             this.$root.$emit('dialogmessage',"Alias is Null");
             return
         }
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
+        //this.username = user.is.alias;
+        //this.pubid = user.is.pub;
     },
     methods: {
-        searchuser(){
-            
+        searchuser(event){
+            console.log(event);
+            this.aliaskey = event;
         },
     }
 }

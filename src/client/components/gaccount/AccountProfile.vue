@@ -1,5 +1,6 @@
 <template>
     <div>
+        Profile: (Press Enter to update profile.)
         <table>
         <tr>
             <td>Alias</td>
@@ -18,6 +19,7 @@
             <td><input v-on:keyup.13="inputskills" v-model="skills"></td>
         </tr>
         </table>
+        
     </div>
 </template>
 <script>

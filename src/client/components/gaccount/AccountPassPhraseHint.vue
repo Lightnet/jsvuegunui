@@ -1,5 +1,6 @@
 <template>
     <div>
+        Recover Hint Passphase:
         <table>
         <tr>
             <td>Question 1</td>

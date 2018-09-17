@@ -37,26 +37,24 @@ export default {
             self.contacts = [];
 
             user.get('contact').once().map().once((data,id)=>{
-                console.log(data);
+                //console.log(data);
                 if(!data.alias)//check for name to exist
                     return;
                 //var option = $('#' + id).get(0) || $('<option>').attr('id', id).appendTo('#contacts');//check if option id exist else create.
                 if(data){
                     if(data == 'null'){
                         //$(option).hide();//hide element
+                        return;
                     }
-                    console.log('data',data);
+                    //console.log('data',data);
                     self.contacts.push({id:id,alias:data.alias,pub:data.pub});
-                    //$(option).text(data.name);//set text
-                } else {
-                    //$(option).hide();//hide element
                 }
             });
         },
         selectcontact(event){
-            console.log("event");
+            //console.log("event");
             //console.log(event.target);
-            console.log(this.selectitem);
+            //console.log(this.selectitem);
             this.aliassearch = this.selectitem;
             this.checkalias();
         },
@@ -66,7 +64,7 @@ export default {
             let user = this.$gun.user();
             user.get('contact').get(this.alias).put({alias:this.alias,pub:this.publickey});
             this.publickey = '';
-            console.log("Add Contact");
+            //console.log("Add Contact");
             this.UpdateContactList();
         },
         removecontact(){
@@ -96,6 +94,7 @@ export default {
                 this.bfound = true;
                 this.publickey = publickey;
                 this.alias = who;
+                this.$emit('publickey',this.publickey);
             }
         }
     }

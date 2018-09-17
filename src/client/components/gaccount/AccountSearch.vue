@@ -1,10 +1,14 @@
 <template>
     <div>
-        Alias Search
+        Alias Public Key Search
         <table>
         <tr>
             <td>Public Key</td>
-            <td><input v-model="alias"></td>
+            <td><input :value="value"></td>
+        </tr>
+        <tr>
+            <td>Identity</td>
+            <td><input v-model="identity" disabled></td>
         </tr>
         <tr>
             <td>Alias</td>
@@ -26,15 +30,27 @@
     </div>
 </template>
 <script>
-//import AccountInfo from './AccountInfo.vue';
-//import IndexNav from './IndexNav.vue';
+
 export default {
+    props: {
+    	value: {
+      		type: String,
+      		default: '',
+    	}
+    },
+    watch: {
+        value:function(newvalue,oldvalue){
+            //console.log(this.value);
+            //console.log("update???");
+            this.lookupalias();
+        }
+    },
     components: {
     },
     data() {
         return {
-            username: 'Guest',
             pubid:'',
+            identity:'',
             alias:'',
             born:'',
             education:'',
@@ -42,14 +58,30 @@ export default {
         }
     },
     created(){
-        var user = this.$gun.user();
-        console.log(user);
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
-
+        //this.$on('searchalias',this.lookupalias);
     },
     methods: {
-        
+        async lookupalias(event){
+            console.log("looking...");
+            let to = this.$gun.user(this.vaule);
+            let who = await to.get('alias').then();
+            this.alias = who;
+
+            let identity = await to.get('alias').then();
+            this.identity = identity;
+
+            let alias = await to.get('profile').get('alias').then();
+            this.alias = alias;
+
+            let born = await to.get('profile').get('born').then();
+            this.born = born;
+
+            let education = await to.get('profile').get('education').then();
+            this.education = education;
+
+            let skills = await to.get('profile').get('skills').then();
+            this.skills = skills;
+        }
     }
 }
 </script>
