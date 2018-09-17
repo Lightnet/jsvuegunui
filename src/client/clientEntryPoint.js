@@ -81,14 +81,14 @@ function init(){
             view(event){
                 //this.$root.$emit('view','account'); //top root vue
                 //console.log("view event", event);
-                console.log(this.$root)
+                //console.log(this.$root)
                 this.$root.$children[0].$emit('view',event)
             }
         }
     })
     
     $("#loading").empty();//empty element html when finish loading javascript...
-    console.log("init?=================");
+    //console.log("init?=================");
 }
 
 init();

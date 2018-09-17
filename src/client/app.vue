@@ -18,8 +18,6 @@ import Access from './components/Access.vue';
 import Register from './components/Register.vue';
 import Forgot from './components/Forgot.vue';
 
-import GGame from './components/GGame.vue';
-
 import Account from './components/Account.vue';
 import Messages from './components/GMessages.vue';
 import Forum from './components/GForum.vue';
@@ -42,8 +40,6 @@ export default {
         'chat':Chat,
         'documents':Documents,
         'todolist':ToDoList,
-        'Game':GGame,
-
     },
     data () {
         return {
@@ -68,15 +64,10 @@ export default {
             $("#dialog_message").dialog('open');
         },
 		view(event){
-            console.log("view event", event);
+            //console.log("view event", event);
             if(event == 'index'){
 				this.currentView = 'index';
             }
-
-            if(event == 'game'){
-				this.currentView = 'game';
-            }
-
             if(event == 'access'){
 				this.currentView = 'access';
             }
@@ -90,7 +81,6 @@ export default {
             if(event == 'account'){
 				this.currentView = 'account';
             }
-
             if(event == 'chat'){
 				this.currentView = 'chat';
             }
@@ -118,7 +108,7 @@ body {
 }
 
 button {
-    font:16px 'Courier New';
+    font:14px 'Courier New';
 }
 
 

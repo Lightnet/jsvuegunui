@@ -73,7 +73,7 @@ export default {
             let to = gun.user(pub);//get alias
             let who = await to.then() || {};//get alias data
             if(!who.alias){
-			    console.log("No Alias!");
+			    //console.log("No Alias!");
                 return;
             }
             //console.log(who);
@@ -96,11 +96,11 @@ export default {
             let to = gun.user(pub);//get alias
             let who = await to.then() || {};//get alias data
             if(!who.alias){
-			    console.log("No Alias!");
+			    //console.log("No Alias!");
                 return;
             }
             this.UI.dec = await Gun.SEA.secret(who.epub, user.pair()); // Diffie-Hellman
-            console.log(user);
+            //console.log(user);
             //this.UI.alias = user.is.alias;
             user.get('messages').get(pub).map().once((data,id)=>{
                 this.UI(data,id,user.is.alias)
@@ -112,12 +112,12 @@ export default {
             });
         },
         async UI(say, id, alias){
-            console.log("test????");
+            //console.log("test????");
             say = await Gun.SEA.decrypt(say, this.UI.dec);
             //var li = $('#' + id).get(0) || $('<li>').attr('id', id).appendTo('ul');
             //$(li).text(say);
-            console.log(say);
-            console.log(id);
+            //console.log(say);
+            //console.log(id);
             this.messages.push({id:id,alias:alias,message:say})
 
         },
@@ -135,9 +135,9 @@ export default {
                     if(data == 'null'){
                         //$(option).hide();//hide element
                     }
-                    console.log('data',data);
+                    //console.log('data',data);
                     self.contacts.push({id:id,alias:data.alias,pub:data.pub});
-                    console.log({id:id,alias:data.alias,pub:data.pub});
+                    //console.log({id:id,alias:data.alias,pub:data.pub});
                     //$(option).text(data.name);//set text
                 } else {
                     //$(option).hide();//hide element
@@ -145,9 +145,9 @@ export default {
             });
         },
         selectcontact(event){
-            console.log("event");
+            //console.log("event");
             //console.log(event.target);
-            console.log(this.selectitem);
+            //console.log(this.selectitem);
             this.publickey = this.selectitem;
             this.checkalias();
         },
@@ -157,7 +157,7 @@ export default {
             let user = this.$gun.user();
             user.get('contact').get(this.alias).put({alias:this.alias,pub:this.publickey});
             //this.publickey = '';
-            console.log("Add Contact");
+            //console.log("Add Contact");
             this.UpdateContactList();
         },
         removecontact(){

@@ -2,7 +2,6 @@
     <div>
         <div class="GNavBar">
             <a href="#" class="LinkBar" @click="clickHome">Home</a>
-            <a href="#" class="LinkBar" @click="clickGame">Game</a>
             <a href="#" class="LinkBar" @click="clickAccount">Account</a>
             <a href="#" class="LinkBar" @click="clickMessages">Messages</a>
             <!--<a href="#" class="LinkBar" @click="clickForum">Forum</a>-->
@@ -28,9 +27,6 @@ export default {
     methods: {
         clickHome(){
             this.$root.$emit('view','index');
-        },
-        clickGame(){
-            this.$root.$emit('view','game');
         },
         clickAccount(){
             this.$root.$emit('view','account');

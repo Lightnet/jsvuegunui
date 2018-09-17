@@ -9,9 +9,7 @@
 <script>
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
-
 import GMessageBox from './gmessages/GMessageBox.vue';
-
 
 export default {
     components: {
@@ -26,11 +24,10 @@ export default {
         }
     },
     created(){
-        var user = this.$gun.user();
-        console.log(user);
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
-
+        //var user = this.$gun.user();
+        //console.log(user);
+        //this.username = user.is.alias;
+        //this.pubid = user.is.pub;
     },
     methods: {
         
