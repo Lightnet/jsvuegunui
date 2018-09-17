@@ -52,10 +52,10 @@ Created by: Lightnet
  * gun.user there might be some bug that doesn't load correctly. null and boolean are not working for some reason to set variable into graph. But not using sea.js it works.
 
 # Project Links:
- * https://glitch.com/edit/#!/baregunjsui
- * https://baregunjsui.glitch.me
- * https://glitch.com/edit/#!/join/ec14bb2a-51d2-46f8-b017-90a225280311
- * https://github.com/Lightnet/baregunjsui
+ * https://glitch.com/edit/#!/jsvuegunui
+ * https://jsvuegunui.glitch.me/
+ * https://glitch.com/edit/#!/join/57279c38-2db3-455c-b1fd-d2b08e5d4aad
+ * https://github.com/Lightnet/jsvuegunui
  
 # Links:
  * https://gun.eco/docs/SEA
