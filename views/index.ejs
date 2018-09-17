@@ -7,8 +7,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 		<!--
+		<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/gun/lib/time.js"></script>
 		-->
 		<script>
@@ -33,14 +33,12 @@
 				s.innerHTML = e.responseText;
 				// or: s[s.innerText!=undefined?"innerText":"textContent"] = e.responseText
 				document.documentElement.appendChild(s);
-
 				s.addEventListener("load", function() {
 					// this runs after the new script has been executed...
 					//init();
 				});
 				//console.log("loaded");
 			}, false);
-
 			function transferFailed(event) {
 				console.log("An error occurred while transferring the file.");
 			}
@@ -51,11 +49,9 @@
 			req.addEventListener("abort", transferCanceled);
 			req.open("GET", "/bundle.js");
 			req.send();
-
 			function progressbar(event){
 				console.log("loading...");
 			}
-
     	</script>
     	<style>
 			.loader {
@@ -78,8 +74,7 @@
 			}
     	</style>
   	</head>
-	  <body>
-		
+	<body>
 		<div id="loading">
 		<div class="loader"></div>
 		<span id="percent"> </span> Loading App...
@@ -99,9 +94,9 @@
 			//document.body.addEventListener("load", (e)=>{
 				//console.log("progressbarid load?");
 			//});
-			window.addEventListener("load",(e)=>{
+			//window.addEventListener("load",(e)=>{
 				//console.log("loaded?");
-			});
+			//});
 		</script>
   	</body>
 </html>
