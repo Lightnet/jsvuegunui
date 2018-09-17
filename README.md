@@ -2,46 +2,53 @@
 
 Created by: Lightnet
 
+# License:
+ MIT
+
 # Required:
  * nodejs
  * npm
 
 # Code Languages:
- * Babeljs es5/6/7 javascript
- * javascript
+ * [Babeljs](https://babeljs.io/) https://babeljs.io
+ * [Vuejs](https://vuejs.org/)  https://vuejs.org
+ * Javascript
 
 # Information:
-  Design to be simple and to keep the files to bare minimal. To build simple peer to peer database messages system by developing Security, Encryption, and Authorization. By using jquery and jquery-ui, gun.js and gun.js libraries as base line just for client and simple server setup. The project has auto build script compiler that is being used for gulp, babel, webpack and other libraries to develop small but compact file. It can be install npm (node package manager) by command line for easy setup. The database is develop mode that not yet config yet for production. Simple access and post and private message system. The project has some simple examples to how gun.js works for peer to peer database with sea.js.
+  Design to be simple and to keep the files to bare minimal. To build simple peer to peer database messages system by developing Security, Encryption, and Authorization. This blank project with basic features to learn how gun.js with vuejs, babeljs, webpack and gulp.
+  
+  This project used:
+   * Vuejs
+   * Babeljs
+   * Jquery
+   * Jquery UI
+   * Webpack
+   * Gulp
 
-  Current mode Development / Debug mode that is not config for production yet.
+  The project has auto build script compiler that is being used for gulp, babel, webpack and other libraries to develop small but compact file. It can be install npm (node package manager) by command line for easy setup. The database is develop mode that not config for production. Simple access and post and private message system. The project has some simple examples to how gun.js works for peer to peer database with sea.js.
 
-  By using jquery for creating element docs, query element id, and other for simple coding build. To get gun.js to load real time to almost direct access to database from server to client and peer to peer connections from other clients.
+  Current mode Development / Debug mode that is not config for production.
 
-# Features:
+  To get gun.js to load real time to almost direct access to database from server to client and peer to peer connections from other clients.
+
+# Features: (reworking...)
  * Peer to Peer database from gun.js.
  * SEA.js (Security, Encryption, Authorization) from gun.js
  * Private Message (Simple)
  * Profile search Alias (Simple)
  * Alias Contacts (Add/Remove)
- * Login, Sign up, Forgot Password Hint (Simple)
+ * Login, Sign up, Forgot Password Hint (Simple | Broken)
  * Change Password (Simple)
  * Chat Message (Timegraph)
  * To Do List (Add / Edit /Remove) (user auth not working / gun working)
- * Connect gun peer (partly work)
- * Disconnect gun peer (partly work)
- * Simple theme light and dark
  * Added simple loading screen since javascript take a while to load.
 
 # Notes:
- * This most simple build using jquery and jquery ui simple dialog and popup message.
- * jquery smallest file to helpful tool scripts.
- * jquery-ui is tricky to setup since they broken in part to reduce file size good for design. Since need few scripts and css to keep file small as possible.
- * Not yet config for development and production.
+ * Not config for development and production.
  * Some minor bug on gun.user() function calls from sea.js might not work in some areas.
  * Load time data may be slow on time graph or other libraries.
 
 # Bugs:
- * Connect and disconnect button is what doesn't work some condtions.
  * gun.user there might be some bug that doesn't load correctly. null and boolean are not working for some reason to set variable into graph. But not using sea.js it works.
 
 # Project Links:
