@@ -1,14 +1,16 @@
 <template>
     <div>
-        <div>
-            <a href="#" @click="clickHome">Home</a>
-            <a href="#" @click="clickAccount">Account</a>
-            <a href="#" @click="clickMessages">Messages</a>
-            <a href="#" @click="clickForum">Forum</a>
-            <a href="#" @click="clickChat">Chat</a>
-            <a href="#" @click="clickDocument">Document</a>
-            <a href="#" @click="clickToDoList">ToDoList</a>
-            <a href="#" @click="clickLogout">Logout</a>
+        <div class="GNavBar">
+            <a href="#" class="LinkBar" @click="clickHome">Home</a>
+            <a href="#" class="LinkBar" @click="clickGame">Game</a>
+            <a href="#" class="LinkBar" @click="clickAccount">Account</a>
+            <a href="#" class="LinkBar" @click="clickMessages">Messages</a>
+            <!--<a href="#" class="LinkBar" @click="clickForum">Forum</a>-->
+            <a href="#" class="LinkBar" @click="clickChat">Chat</a>
+            <a href="#" class="LinkBar" @click="clickDocument">Documents</a>
+            <a href="#" class="LinkBar" @click="clickToDoList">ToDoList</a>
+            <a href="#" class="LinkBar" @click="clickLogout">Logout</a>
+            <!-- <label class="LinkBar" >Logout</label> -->
         </div>
     </div>
 </template>
@@ -22,16 +24,13 @@ export default {
         }
     },
     created(){
-        var user = this.$gun.user();
-        //console.log(user);
-        if(user.is == null)
-            return;
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
     },
     methods: {
         clickHome(){
             this.$root.$emit('view','index');
+        },
+        clickGame(){
+            this.$root.$emit('view','game');
         },
         clickAccount(){
             this.$root.$emit('view','account');
@@ -63,7 +62,15 @@ export default {
 </script>
 
 <style>
-.example {
-  color: red;
+.GNavBar{
+    height:30px;
+    /*background-color:lightblue;*/
+    margin: 0px;
+    /*margin-top: 20px*/
+}
+.LinkBar{
+    font-size: 16px;
+    margin: 10px;
+    margin-top: 30px
 }
 </style>

@@ -48,8 +48,6 @@ export default {
         //pkey = await Gun.SEA.decrypt(pkey, mix);
         //let val = await Gun.SEA.decrypt(data, pkey);
         //console.log(val);
-
-
     },
     methods: {
         async inputalias(event){

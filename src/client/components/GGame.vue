@@ -2,39 +2,41 @@
     <div>
         <accountinfo></accountinfo>
         <indexnav></indexnav>
-        <div>
-            Chat Room
-            <ChatRoom></ChatRoom>
+        <div class="example">
+            {{ msg }}
+
         </div>
+        <BottomBar></BottomBar>
     </div>
 </template>
 
 <script>
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
+import BottomBar from './BottomBar';
 
-import ChatRoom from './gchat/ChatRoom.vue';
 export default {
     components: {
         'indexnav':IndexNav,
         'accountinfo':AccountInfo,
-        ChatRoom
+        BottomBar,
     },
-    data() {
+    data () {
         return {
-            username: 'Guest',
-            pubid:''
+            msg: 'Hello world!'
         }
     },
     created(){
-        var user = this.$gun.user();
-        console.log(user);
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
 
+
+        
+    },
+    beforeDestroy(){
     },
     methods: {
-        
     }
 }
 </script>
+
+<style>
+</style>

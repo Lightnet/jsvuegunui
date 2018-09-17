@@ -2,19 +2,22 @@
     <div>
         <accountinfo></accountinfo>
         <indexnav></indexnav>
-        <div>
-            Messages
-        </div>
+        <messagebox></messagebox>
     </div>
 </template>
 
 <script>
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
+
+import GMessageBox from './gmessages/GMessageBox.vue';
+
+
 export default {
     components: {
         'indexnav':IndexNav,
         'accountinfo':AccountInfo,
+        'messagebox':GMessageBox,
     },
     data() {
         return {

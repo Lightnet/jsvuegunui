@@ -27,6 +27,7 @@ user.leave()//to logout
 
 # Gun.js Sea.js
  * https://gun.eco/docs/SEA
+ * https://gist.github.com/amark/7dceae874a20878fdb9e2a8eed109bb5 PM
 
 Links:
  * https://gist.github.com/amark/44b8110a3c848917d6c738f9c3a36e24 grant access

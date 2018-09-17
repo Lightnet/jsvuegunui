@@ -1,9 +1,11 @@
 <template>
     <div id="wrapper">
         <div id="menu">
+            <!--
             <p class="welcome">Welcome, <b></b></p>
             <p class="logout"><a id="exit" href="#">Exit Chat</a></p>
             <div style="clear:both"></div>
+            -->
         </div>
         <div id="chatbox">
             <div v-for="item in messages" :key="item.id">
@@ -82,9 +84,14 @@ a {
     text-align:left;
     /*
     margin:0 auto;
-    */
     margin-bottom:25px;
     padding:10px;
+    */
+    margin-left:20px;
+    margin-bottom:20px;
+    padding:10px;
+    
+    
     background:#fff;
     height:270px;
     width:430px;
@@ -93,6 +100,7 @@ a {
   
 #usermsg {
     width:395px;
+    margin-left:20px;
     border:1px solid #ACD8F0; }
   
 #submit { width: 60px; }

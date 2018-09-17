@@ -2,10 +2,10 @@
     <div>
         <accountinfo></accountinfo>
         <indexnav></indexnav>
+
         
         <BottomBar />
         <!--
-        
         <AliasContacts></AliasContacts>
         <AlphaTest></AlphaTest>
         <accountpassphrasehint></accountpassphrasehint>
@@ -19,7 +19,7 @@
 <script>
 import AccountInfo from './AccountInfo.vue';
 import IndexNav from './IndexNav.vue';
-import BottomBar from './BottomBar'
+import BottomBar from './BottomBar';
 
 //import AccountChangePassPhrase from './gaccount/AccountChangePassPhrase.vue';
 //import AccountPassPhraseHint from './gaccount/AccountPassPhraseHint.vue';
