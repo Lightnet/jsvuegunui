@@ -9,6 +9,9 @@ Created by: Lightnet
  * nodejs
  * npm
 
+# Optional:
+ * Visual Studio Code (Might have to instal ext to run well for autocomplete script language)
+
 # Code Languages:
  * [Babeljs](https://babeljs.io/) https://babeljs.io
  * [Vuejs](https://vuejs.org/)  https://vuejs.org
