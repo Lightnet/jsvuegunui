@@ -10,4 +10,6 @@ DBHost='localhost'
 DBName='gun'
 DBCollection='gun-mongo'
 ```
-Note: You can't used space else linux will give errors.
+Note: 
+ * You can't used space else linux will give errors.
+ * Case Sensitive letters.

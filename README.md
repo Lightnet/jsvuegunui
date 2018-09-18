@@ -47,6 +47,7 @@ Created by: Lightnet
  * Not config for development and production.
  * Some minor bug on gun.user() function calls from sea.js might not work in some areas.
  * Load time data may be slow on time graph or other libraries.
+ * Case Sensitive letters for linux as for name files.
 
 # Bugs:
  * gun.user there might be some bug that doesn't load correctly. null and boolean are not working for some reason to set variable into graph. But not using sea.js it works.
