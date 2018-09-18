@@ -80,12 +80,25 @@ gunconfig.file=process.env.DatabaseFile || './data.json';
 if(bdatabase =='true'){
   gunconfig.localStorage = false;
   gunconfig.radisk = false;
-  gunconfig.mongo = {
-    host: process.env.DBHost || 'localhost',
-    port:process.env.DBPort  || '27017',
-    database: process.env.DBName  || 'gun',
-    collection: process.env.DBCollection  || 'gun-mongo',
-    query: ''
+  var blocal = process.env.Blocal || false;
+  if(blocal){
+    gunconfig.mongo = {
+      host:'localhost',
+      host:'localhost',
+      port: '27017',
+      database: 'gun',
+      collection: 'gun-mongo',
+      query: ''
+    }
+  }else{
+    gunconfig.mongo = {
+      host: process.env.DBHost || 'localhost',
+      host:'localhost',
+      port:process.env.DBPort  || '27017',
+      database: process.env.DBName  || 'gun',
+      collection: process.env.DBCollection  || 'gun-mongo',
+      query: ''
+    }
   }
   console.log("init database setup???");
 }

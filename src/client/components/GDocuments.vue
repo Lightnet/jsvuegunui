@@ -23,10 +23,10 @@ export default {
         }
     },
     created(){
-        var user = this.$gun.user();
-        console.log(user);
-        this.username = user.is.alias;
-        this.pubid = user.is.pub;
+        //var user = this.$gun.user();
+        //console.log(user);
+        //this.username = user.is.alias;
+        //this.pubid = user.is.pub;
 
     },
     methods: {

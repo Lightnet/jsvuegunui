@@ -3,6 +3,7 @@
 default settings or config
 ```
 DatabaseFile='./data.json'
+Blocal=true
 BDatabase=true
 DBPort='27017'
 DBHost='localhost'

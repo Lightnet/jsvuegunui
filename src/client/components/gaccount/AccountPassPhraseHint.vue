@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         async getchangehint(){
-            console.log("get data");
+            //console.log("get data");
             let user = this.$gun.user();
             let sec = await Gun.SEA.secret(user.pair().epub, user.pair());//get user for encrypt message
 
@@ -69,7 +69,7 @@ export default {
             //console.log(sec);
             
             let enc = await Gun.SEA.encrypt(hint, sec);//encrypt hint
-            console.log(enc);
+            //console.log(enc);
             user.get('hint').put(enc,ack=>{//set hash hint
                 //console.log(ack);
                 if(ack.ok){

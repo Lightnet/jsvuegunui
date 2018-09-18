@@ -44,7 +44,7 @@ export default {
     watch: {
         value:function(newvalue,oldvalue){
             //console.log(this.value);
-            console.log("value???");
+            //console.log("value???");
             this.lookupalias();
         }
     },
@@ -86,11 +86,8 @@ export default {
 
             let identity = await to.get('alias').then();
             this.identity = identity;
-
             //let alias = await to.get('profile').get('alias').then();
-
             this.searchprofile()
-
             //let pkey = await to.get('trust').get(user.pair().pub).get('alias'+'profile').then();
             //console.log('profile pkey',pkey);
             //var mix = await Gun.SEA.secret(await user.get('epub').then(), user.pair());
@@ -151,9 +148,8 @@ export default {
 
         async getprofilevar(_name,_value){
 			let user = this.$gun.user();
-
             let pkey = await user.get('trust').get(user.pair().pub).get(_name+'profile').then();
-            console.log(pkey)
+            //console.log(pkey)
 			var mix = await Gun.SEA.secret(await user.get('epub').then(), user.pair());
 			//let epub = await user.get('epub').then();
 			pkey = await Gun.SEA.decrypt(pkey, mix);

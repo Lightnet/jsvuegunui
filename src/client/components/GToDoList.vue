@@ -97,7 +97,7 @@ export default {
     		return (!str || 0 === str.length);
 		},
 		editchange(event){
-			console.log(event);
+			//console.log(event);
 			//console.log(event.target.id);
 			let id = event.target.id;
 			let str_text = event.target.value;
@@ -111,7 +111,7 @@ export default {
 			}
 
 			user.get('todolist').get(id).put({text:str_text},function(ack){
-				console.log(ack);
+				//console.log(ack);
 			});
 
 			this.todos.filter(todo => {
