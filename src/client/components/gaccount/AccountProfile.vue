@@ -39,19 +39,58 @@ export default {
     async created(){
         var user = this.$gun.user();
         //console.log(user);
-        this.alias = await user.get('profile').get('alias').then();
-        this.alias = await this.getprofilevar('alias', this.alias);
+        //this.alias = await user.get('profile').get('alias').then();
+        //this.alias = await this.getprofilevar('alias', this.alias);
 
-        this.born = await user.get('profile').get('born').then();
-        this.born = await this.getprofilevar('born', this.born);
+        //this.born = await user.get('profile').get('born').then();
+        //this.born = await this.getprofilevar('born', this.born);
 
-        this.education = await user.get('profile').get('education').then();
-        this.education = await this.getprofilevar('education', this.education);
+        //this.education = await user.get('profile').get('education').then();
+        //this.education = await this.getprofilevar('education', this.education);
 
-        this.skills = await user.get('profile').get('skills').then();
-        this.skills = await this.getprofilevar('skills', this.skills);
+        //this.skills = await user.get('profile').get('skills').then();
+        //this.skills = await this.getprofilevar('skills', this.skills);
+
+        this.searchprofile()
     },
     methods: {
+        /*
+            Work in progress in decrypt profile data
+            Need to clean how decrypt correctly.
+
+        */
+        async searchprofile(){
+            let self = this;
+            let user = this.$gun.user();
+            let find = this.$gun.user();
+            find.get('profile').on(function(data, key, at, ev){//get map data
+                //console.log(data);
+                //console.log(key);
+                ev.off(); //pervent loops listen add on?
+                Gun.node.is(data, async function(v, k){
+                    //console.log(k);// variable
+                    //console.log(v);// crypt
+                    var key = await find.get('trust').get(user.pair().pub).get(k+'profile').then();
+                    var mix = await Gun.SEA.secret(await find.get('epub').then(), user.pair());
+                    key = await Gun.SEA.decrypt(key, mix);
+                    var val = await Gun.SEA.decrypt(v, key);
+
+                    if(k == 'alias'){
+                        self.alias = val || v
+                    }
+                    if(k == 'born'){
+                        self.born = val || v
+                    }
+                    if(k == 'education'){
+                        self.education = val || v
+                    }
+                    if(k == 'skills'){
+                        self.skills = val || v
+                    }
+                    //console.log(val);
+                });
+            });
+        },
         async getprofilevar(_name,_value){
 			let user = this.$gun.user();
 
