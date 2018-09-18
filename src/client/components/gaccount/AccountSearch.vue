@@ -66,10 +66,8 @@ export default {
     methods: {
         async lookupalias(event){
             console.log("looking...");
-
-
             let to = this.$gun.user(this.pubid);
-
+            let user = this.$gun.user();
             let who = await to.get('alias').then();
             if (!who){
                 this.alias = '';
@@ -85,17 +83,44 @@ export default {
             this.identity = identity;
 
             let alias = await to.get('profile').get('alias').then();
-            this.alias = alias;
+            let pkey = await to.get('trust').get(user.pair().pub).get('alias'+'profile').then();
+            console.log('profile pkey',pkey);
+            var mix = await Gun.SEA.secret(await user.get('epub').then(), user.pair());
+            console.log('mix',mix)
+            //let epub = await user.get('epub').then();
+            pkey = await Gun.SEA.decrypt(pkey, mix);
+            console.log('pkey',pkey);
+            let val = await Gun.SEA.decrypt(alias, mix);
+            console.log(val);
+            
+            //this.alias = await this.getprofilevar('alias', alias);
+            //this.alias = alias;
 
-            let born = await to.get('profile').get('born').then();
-            this.born = born;
+            //let born = await to.get('profile').get('born').then();
+            //this.born = await this.getprofilevar('born', born);
+            //this.born = born;
 
-            let education = await to.get('profile').get('education').then();
-            this.education = education;
+            //let education = await to.get('profile').get('education').then();
+            //this.education = await this.getprofilevar('education', education);
+            //this.education = education;
 
-            let skills = await to.get('profile').get('skills').then();
-            this.skills = skills;
-        }
+            //let skills = await to.get('profile').get('skills').then();
+            //this.skills = await this.getprofilevar('skills', skills);
+            //this.skills = skills;
+        },
+        async getprofilevar(_name,_value){
+			let user = this.$gun.user();
+
+            let pkey = await user.get('trust').get(user.pair().pub).get(_name+'profile').then();
+            console.log(pkey)
+			var mix = await Gun.SEA.secret(await user.get('epub').then(), user.pair());
+			//let epub = await user.get('epub').then();
+			pkey = await Gun.SEA.decrypt(pkey, mix);
+			//console.log(pkey)
+			let val = await Gun.SEA.decrypt(_value, pkey);
+			//console.log(val)
+			return val || _value;
+		},
     }
 }
 </script>

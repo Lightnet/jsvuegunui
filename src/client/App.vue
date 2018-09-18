@@ -7,26 +7,33 @@
         <div id="dialog_message" title="Message">
             <p>{{dialogmessage}}</p>
         </div>
+
+        <div id="DialogGrant" title="Alias Grant">
+            <strong id="keyparam" value="none" />
+            Alias Public Key:<input id="inputpublickeygrant" type="text">
+        </div>
+
+        <div id="DialogGrantAlias" title="Alias Permission">
+            Alias <label id="AliasTag"> Name </label>
+        </div>
     </div>
 </template>
 
 <script>
+//{
 import $ from 'jquery';
-
 import Index from './components/Index.vue';
 import Access from './components/Access.vue';
 import Register from './components/Register.vue';
 import Forgot from './components/Forgot.vue';
-
 import Account from './components/Account.vue';
 import Messages from './components/GMessages.vue';
 import Forum from './components/GForum.vue';
 import Chat from './components/GChat.vue';
 import Documents from './components/GDocuments.vue';
 import ToDoList from './components/GToDoList.vue';
-
 import bus from './bus';
-
+//}
 export default {
     components: {
         'index':Index,
@@ -44,9 +51,11 @@ export default {
     data () {
         return {
             currentView: 'access',
-            username:'Guest',
+            //username:'Guest',
             guntime:'',
             dialogmessage:'Hello',
+            publickey:'',
+            granttype:'',
         }
     },
     created(){
@@ -55,8 +64,63 @@ export default {
         //bus.$on('view', this.view);
     },
     mounted(){
+        var self = this;
         $("#dialog_message").dialog();
         $("#dialog_message").dialog('close');
+
+        $("#DialogGrant").dialog({
+            buttons: {
+                "Ok": async function() {
+                    
+                    //let param = $("DialogGrant").data('param_1');
+                    //let param = $("DialogGrant")['param_1'];
+                    //let param = document.getElementById("keyparam").value;
+                    //console.log(param);
+                    let key = self.publickey = document.getElementById('inputpublickeygrant').value;
+                    console.log(key);
+                    let to = self.$gun.user(key);
+                    let who = await to.get('alias').then();
+                    if(!who){
+                        console.log('No Alias!');
+                    }else{
+                        //AliasTag
+                        document.getElementById('AliasTag').innerText = who;
+                        //$("#DialogGrantAlias")['param_1']=param;
+                        $("#DialogGrantAlias").dialog('open');
+                    }
+                    $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                $( this ).dialog( "close" );
+                }
+            }
+        });
+        $("#DialogGrant").dialog('close');
+
+        $("#DialogGrantAlias").dialog({
+            buttons: {
+                "Ok": async function() {
+                    //user.get('profile').get('born')
+                    //let to = self.$gun.user(key);
+                    //let who = await to.get('alias').then();
+                    let user = self.$gun.user();
+                    //user.get('profile').get('born');
+                    //let param = $("DialogGrantAlias").data('param_1');
+                    //console.log(param);
+                    let param = document.getElementById("keyparam").value;
+                    let key = self.publickey = document.getElementById('inputpublickeygrant').value;
+                    let to = self.$gun.user(key);
+                    console.log(param);
+                    user.get('profile').get(param).grant(to);
+                    $(this).dialog("close");
+                },
+                Cancel: function() {
+                $( this ).dialog( "close" );
+                }
+            }
+        });
+        $("#DialogGrantAlias").dialog('close');
+        
     },
     methods: {
         dialogmessage_event(event){
