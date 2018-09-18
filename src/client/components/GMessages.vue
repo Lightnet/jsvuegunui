@@ -19,8 +19,8 @@ export default {
     },
     data() {
         return {
-            username: 'Guest',
-            pubid:''
+            //username: 'Guest',
+            //pubid:''
         }
     },
     created(){

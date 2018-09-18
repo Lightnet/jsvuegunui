@@ -18,7 +18,7 @@ Created by: Lightnet
  * Javascript
 
 # Information:
-  Design to be simple and to keep the files to bare minimal. To build simple peer to peer database messages system by developing Security, Encryption, and Authorization. This blank project with basic features to learn how gun.js with vuejs, babeljs, webpack and gulp.
+  Design to be simple and to keep the files to minimal. To build simple peer to peer database messages system by developing Security, Encryption, and Authorization. This blank project with basic features to learn how gun.js with vuejs, babeljs, webpack and gulp.
   
   This project used:
    * Vuejs

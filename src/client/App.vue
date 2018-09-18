@@ -166,7 +166,7 @@ export default {
 </script>
 
 <style>
-* { padding: 0; margin: 0; }
+
 .parent{
     min-height:100%;
     width:400px;
@@ -176,8 +176,6 @@ export default {
 }
 
 html, body, #fullheight {
-    margin: 0;
-	padding: 0;
     min-height: 100% !important;
     height: 100%;
 }

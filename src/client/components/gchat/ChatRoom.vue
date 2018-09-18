@@ -6,13 +6,13 @@
                     {{ item.alias }} | > | {{ item.message }}
                 </div>
             </div>
-            <div class="col" style="width:100px; background-color:#bbb;">Test2</div>
+            <div class="col" style="width:100px; background-color:#bbb;"></div>
         </div>
-        <div style="height:30px;width:100%;background-color:gray;">
-            <form name="message" action="javascript:void(0);">
-                <input name="usermsg" type="text" id="usermsg" size="63" v-model="message"/>
-                <input name="submitmsg" type="submit"  id="submitmsg" value="Send" @click="sendmessage" />
-            </form>
+        <div style="height:40px;width:100%;background-color:gray;">
+            <div class="chatboxinput">
+                <input type="text" size="63" v-model="message"/>
+                <input type="submit" value="Send" @click="sendmessage" />
+            </div>
         </div>
     </div>
 </template>
@@ -22,7 +22,6 @@ import $ from 'jquery';
 
 export default {
     components: {
-        
     },
     data() {
         return {
@@ -34,15 +33,15 @@ export default {
     mounted(){
         
         let $win = $(window);
-        $("#chatmessagebox").height($win.height()-90);
+        $("#chatmessagebox").height($win.height()-114);
         $win.on('resize',function(){
-            $("#chatmessagebox").height($win.height()-90);
+            $("#chatmessagebox").height($win.height()-114);
         });
         
         
-        $("#messagebox").height($win.height()-100);
+        $("#messagebox").height($win.height()-120);
         $win.on('resize',function(){
-            $("#messagebox").height($win.height()-100);
+            $("#messagebox").height($win.height()-120);
         });
         
     },
@@ -71,5 +70,8 @@ export default {
 </script>
 
 <style>
-
+.chatboxinput{
+    padding: 8px;
+    /*border: 1px solid #4CAF50;*/
+}
 </style>

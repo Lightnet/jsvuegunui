@@ -8,12 +8,19 @@
             </div>
             <div class="col" style="width:100px; background-color:#bbb;"></div>
         </div>
-        <div style="height:70px;width:100%;background-color:gray;">
-            Contact:<select v-model="selectitem" @change="selectcontact">
+        <div style="height:70px;width:100%;background-color:gray;padding: 4px;">
+            <button @click="togglecontact">Contact</button>
+                <strong v-if="bdisplaycontact">
+                    <select v-model="selectitem" @change="selectcontact">
                         <option selected="true"> None </option>
                         <option v-for="item in contacts" :key="item.id" v-bind:value="item.pub"> {{item.alias}}</option>
                     </select>
-            Public Key:<input v-model="publickey" v-on:keyup="checkalias">  <button @click="addcontact">Add</button> <button @click="removecontact">Remove</button><label>Status:{{statussearch}}</label>
+                    Public Key:
+                    <input v-model="publickey" v-on:keyup="checkalias">
+                    <button @click="addcontact">Add</button>
+                    <button @click="removecontact">Remove</button>
+                </strong>
+            <label>Status:{{statussearch}}</label>
             <br>Content:<textarea v-model="messagecontent"> </textarea> <button @click="sendprivatemessage">Send</button>
         </div>
     </div>
@@ -30,6 +37,7 @@ export default {
         return {
             messages:[],
             contacts:[],
+            bdisplaycontact:true,
             alias:'',
             publickey:'',
             messagesubject:'test',
@@ -37,6 +45,8 @@ export default {
             selectitem:'',
             bfound:false,
             statussearch:'Normal',
+            chatboxheight:134,
+            chatmessageheight:136,
         }
     },
     created(){
@@ -45,17 +55,25 @@ export default {
     mounted(){
         this.UpdateContactList();
         let $win = $(window);
-        $("#chatmessagebox").height($win.height()-140);
+        let chatboxheight = this.chatboxheight;
+        let chatmessageheight = this.chatmessageheight;
+        $("#chatmessagebox").height($win.height() - chatboxheight);
         $win.on('resize',function(){
-            $("#chatmessagebox").height($win.height()-140);
+            $("#chatmessagebox").height($win.height() - chatboxheight);
         });
-        $("#messagebox").height($win.height()-140);
+        $("#messagebox").height($win.height() - chatmessageheight);
         $win.on('resize',function(){
-            $("#messagebox").height($win.height()-140);
+            $("#messagebox").height($win.height() - chatmessageheight);
         });
-        
     },
     methods: {
+        togglecontact(){
+            if(this.bdisplaycontact){
+                this.bdisplaycontact = false;
+            }else{
+                this.bdisplaycontact = true;
+            }
+        },
         async sendprivatemessage(){
             let user = this.$gun.user();
             let gun = this.$gun;
