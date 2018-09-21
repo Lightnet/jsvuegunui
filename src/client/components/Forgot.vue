@@ -55,9 +55,9 @@ export default {
         return {
             msg: 'Recover Forgot Passphase!',
             publickey:'',
-            alias:'guest',
-            question1:'test',
-            question2:'test',
+            alias:'',
+            question1:'',
+            question2:'',
             hint:'',
             statusdisplay:'Normal',
         }

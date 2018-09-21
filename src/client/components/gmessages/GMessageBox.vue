@@ -21,7 +21,7 @@
                     <button @click="removecontact">Remove</button>
                 </strong>
             <label>Status:{{statussearch}}</label>
-            <br>Content:<textarea v-model="messagecontent"> </textarea> <button @click="sendprivatemessage">Send</button>
+            <br>Content:<textarea v-model="messagecontent" v-on:keyup.enter="sendprivatemessage"> </textarea> <button @click="sendprivatemessage">Send</button>
         </div>
     </div>
 </template>
@@ -40,8 +40,8 @@ export default {
             bdisplaycontact:true,
             alias:'',
             publickey:'',
-            messagesubject:'test',
-            messagecontent:'test',
+            messagesubject:'',
+            messagecontent:'',
             selectitem:'',
             bfound:false,
             statussearch:'Normal',
@@ -95,8 +95,11 @@ export default {
             let enc = await Gun.SEA.encrypt(message, sec); //encrypt message
             //console.log(to);
             user.get('messages').get(pub).set(enc);
+            this.messagecontent = '';
+
         },
         async viewprivatemessages(){
+            console.log("view messages");
             let user = this.$gun.user();
             let gun = this.$gun;
             this.messages = [];
@@ -104,26 +107,31 @@ export default {
             //create it
             if(!user.is){ return }//check if user exist
             let pub = (this.publickey || '').trim();
-            let message = (this.messagecontent || '').trim();
-            if(!message) return;//check if not message empty
+            //let message = (this.messagecontent || '').trim();
+            //if(!message) return;//check if not message empty
             if(!pub) return;//check if not id empty
             let to = gun.user(pub);//get alias
             let who = await to.then() || {};//get alias data
             if(!who.alias){
-			    //console.log("No Alias!");
+                console.log("No Alias!");
+                this.messages = [];
                 return;
             }
             this.UI.dec = await Gun.SEA.secret(who.epub, user.pair()); // Diffie-Hellman
             //console.log(user);
             //this.UI.alias = user.is.alias;
+            console.log("getting message");
+            //user.get('messages').off();
             user.get('messages').get(pub).map().once((data,id)=>{
                 this.UI(data,id,user.is.alias)
             });
             //console.log(to);
             //this.UI.alias = who.alias;
+            //to.get('messages').off();
             to.get('messages').get(user.pair().pub).map().once((data,id)=>{
                 this.UI(data,id,who.alias)
             });
+            console.log("end messages");
         },
         async UI(say, id, alias){
             //console.log("test????");
@@ -132,8 +140,9 @@ export default {
             //$(li).text(say);
             //console.log(say);
             //console.log(id);
-            this.messages.push({id:id,alias:alias,message:say})
-
+            this.messages.push({id:id,alias:alias,message:say});
+            let element = document.getElementById("messagebox");
+            element.scrollTop = element.scrollHeight;
         },
         UpdateContactList(){
             let self = this;

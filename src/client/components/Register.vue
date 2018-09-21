@@ -32,8 +32,8 @@ export default {
     data() {
         return {
             msg: 'Register!',
-            username:'guest',
-            passphrase:'guest',
+            username:'',
+            passphrase:'',
             bregister:true,
         }
     },

@@ -29,8 +29,8 @@ export default {
     data() {
         return {
             msg: 'Login!',
-            username:'guest',
-            passphrase:'guest',
+            username:'',
+            passphrase:'',
         }
     },
     methods: {

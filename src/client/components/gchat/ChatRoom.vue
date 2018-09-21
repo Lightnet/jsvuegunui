@@ -10,7 +10,7 @@
         </div>
         <div style="height:40px;width:100%;background-color:gray;">
             <div class="chatboxinput">
-                <input type="text" size="63" v-model="message"/>
+                <input type="text" size="63" v-model="message" v-on:keyup.enter="sendmessage" />
                 <input type="submit" value="Send" @click="sendmessage" />
             </div>
         </div>
@@ -48,22 +48,37 @@ export default {
     created(){
         let gun = this.$gun;
         this.chatroom = gun.get('chatroom');
-
+        let self = this;
         this.chatroom.time((data, key, time)=>{//listen setup
             gun.get(data['#']).once((d,id)=>{
                 //console.log(id);
                 //console.log(d);
                 //console.log(d.message);
-                this.messages.push({id:id,alias:d.alias,message:d.message});
+                self.messages.push({id:id,alias:d.alias,message:d.message});
+                //self.messages.unshift({id:id,alias:d.alias,message:d.message});
+                self.updatechatscoll();
             });
         },20);//number display when loaded and time is trigger here if push.
+        //self.messages.reverse();
     },
     methods: {
         sendmessage(){
             //this.message
             let user = this.$gun.user();
+            if(!this.message){
+                return;
+            }
             console.log(user.is.alias);
-            this.chatroom.time({alias:user.is.alias,message:this.message});
+            this.$gun.get('chatroom').time({alias:user.is.alias,message:this.message},(ack)=>{
+                console.log(ack);
+            });
+            this.message = "";
+        },
+        updatechatscoll(){
+            setTimeout(()=>{
+                let element = document.getElementById("messagebox");
+                element.scrollTop = element.scrollHeight;
+            },50);
         }
     }
 }
