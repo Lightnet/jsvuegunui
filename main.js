@@ -117,5 +117,3 @@ gun.on('bye', (peer)=>{// peer disconnect
   //console.log('disconnected from', peer);
   console.log('disconnected from peer!');
 });
-
-
