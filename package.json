@@ -32,7 +32,7 @@
     "file-loader": "^1.1.11",
     "gulp": "^3.9.1",
     "gulp-live-server": "^0.0.31",
-    "gun": "^0.9.99994",
+    "gun": "^0.2019.930",
     "gun-mongo": "^0.1.2",
     "helmet": "^3.13.0",
     "img-loader": "^3.0.0",
