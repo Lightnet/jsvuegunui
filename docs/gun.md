@@ -104,3 +104,28 @@ Links:
 subscribe
 
 ```
+
+```js
+user.get('profile').on((data, key, at, ev)=>{
+        //console.log(Gun.node.is(data));//nope
+        ev.off(); //pervent loops listen add on?
+        console.log(data);
+        console.log(key);
+        console.log(at);
+        console.log(ev);
+        let da = toRaw(data);
+        console.log(da)
+      })
+```
+
+```js
+user.get('profile').once((data, key, at, ev)=>{//nope
+    //console.log(Gun.node.is(data));//nope
+    console.log(data);
+    console.log(key);
+    console.log(at);
+    console.log(ev);
+    let da = toRaw(data);//object 
+    console.log(da)
+  })
+```

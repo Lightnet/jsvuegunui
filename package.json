@@ -1,95 +1,48 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
   "name": "jsvuegunui",
+  "private": true,
   "version": "0.0.1",
   "description": "A simple Node app with gundb as a database management system, instantly up and running.",
   "main": "main.js",
   "scripts": {
-    "start": "webpack && babel-node main.js --host 0.0.0.0",
-    "server": "webpack",
-    "watch": "webpack --watch",
-    "startbabel": "babel-node main.js --host 0.0.0.0"
+    "dev": "npm-run-all --parallel nodemon",
+    "devn": "npm-run-all --parallel buildw express",
+    "express": "nodemon src/server/server.mjs",
+    "vite": "vite",
+    "nodemon": "nodemon server.mjs",
+    "ssrbuild": "npm run build:client && npm run build:server",
+    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.mjs --outDir dist/server",
+    "generate": "vite build --ssrManifest --outDir dist/static && npm run build:server && node prerender.mjs",
+    "serve": "cross-env NODE_ENV=production node server",
+    "debug": "node --inspect-brk server"
   },
   "dependencies": {
-    "@babel/cli": "^7.1.0",
-    "@babel/core": "^7.1.0",
-    "@babel/node": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/runtime": "^7.0.0",
-    "@babel/runtime-corejs2": "^7.0.0",
-    "babel-loader": "^8.0.2",
-    "babel-plugin-module-resolver": "^3.1.1",
-    "browser-sync": "^2.24.7",
-    "css-loader": "^0.28.11",
-    "curl": "^0.1.4",
-    "dotenv": "^5.0.1",
-    "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "file-loader": "^1.1.11",
-    "gulp": "^3.9.1",
-    "gulp-live-server": "^0.0.31",
-    "gun": "^0.9.99994",
-    "gun-mongo": "^0.1.2",
-    "helmet": "^3.13.0",
-    "img-loader": "^3.0.0",
-    "jquery": "^3.3.1",
-    "jquery-ui": "^1.12.1",
-    "lodash": "^4.17.11",
-    "moment": "^2.22.2",
-    "node-sass": "^4.9.3",
-    "raw-loader": "^0.5.1",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.21.0",
-    "url-loader": "^1.1.1",
-    "vue": "^2.5.17",
-    "vue-gun": "^0.0.3",
-    "vue-loader": "^15.4.2",
-    "vue-style-loader": "^4.1.2",
-    "webpack": "^4.20.1",
-    "webpack-bundle-analyzer": "^3.0.2",
-    "webpack-dev-server": "^3.1.9",
-    "webpack-cli": "^3.1.1",
-    "webpack-node-externals": "^1.7.2"
+    "chalk": "^5.0.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "gun": "^0.2020.1236",
+    "moment": "^2.29.1",
+    "nodemon": "^2.0.15",
+    "npm-run-all": "^4.1.5",
+    "serve-static": "^1.15.0",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14"
   },
   "engines": {
-    "node": "8.x"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/hello-sqlite"
+    "node": "16.x"
   },
   "license": "MIT",
-  "babel": {
-    "presets": [
-      [
-        "@babel/env",
-        {
-          "modules": false
-        }
-      ]
-    ],
-    "plugins": [
-      [
-        "module-resolver",
-        {
-          "root": [
-            "./src"
-          ],
-          "alias": {}
-        }
-      ]
-    ]
-  },
   "keywords": [
     "node",
-    "glitch",
-    "express",
-    "gundb"
+    "gun"
   ],
   "devDependencies": {
-    "vue-template-compiler": "^2.5.17"
+    "@vitejs/plugin-vue": "^2.2.4",
+    "@vue/compiler-sfc": "^3.2.31",
+    "vite": "^2.8.6"
   }
 }

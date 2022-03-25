@@ -9,6 +9,13 @@ Created by: Lightnet
  * nodejs
  * npm
 
+# Packages:
+  - vue
+  - vue-router
+  - gun
+  - vite
+  - express
+
 # Optional:
  * Visual Studio Code (Might have to instal ext to run well for autocomplete script language)
 
