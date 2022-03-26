@@ -2,15 +2,10 @@
 
 # Created by: Lightnet
 
-# License:
- MIT
-
-# Notes:
-  - Not recommand to use gun instance on ref() or proxy.
+# License: MIT
 
 # Required:
  * nodejs
- * npm
 
 # Packages:
   - vue
@@ -19,26 +14,27 @@
   - vite
   - express
 
-# Optional:
- * Visual Studio Code (Might have to instal ext to run well for autocomplete script language)
-
 # Code Languages:
  * [Babeljs](https://babeljs.io/) https://babeljs.io
  * [Vuejs](https://vuejs.org/)  https://vuejs.org
  * Javascript
 
 # Information:
-  Design to be simple and to keep the files to minimal. To build simple peer to peer database messages system by developing Security, Encryption, and Authorization. This blank project with basic features to learn how gun.js with vuejs, babeljs, webpack and gulp.
-  
-  This project used:
-   * Vuejs
-   * Babeljs
+  Design to be simple and to keep the files to minimal. To build simple peer to peer database messages system by developing Security, Encryption, and Authorization. That gun.js has develop sea.js for broswer and server javascript code. This project with basic features to learn how gun.js with vuejs, babeljs, vitejs.
 
-  The project has auto build script compiler that is being used for gulp, babel, webpack and other libraries to develop small but compact file. It can be install npm (node package manager) by command line for easy setup. The database is develop mode that not config for production. Simple access and post and private message system. The project has some simple examples to how gun.js works for peer to peer database with sea.js.
+  The project has auto build script compiler that is being used for vitejs, babel and other libraries to develop small but compact file. It can be install npm (node package manager) by command line for easy setup. The database is develop mode that not config for production. Simple access and post and private message system. The project has some simple examples to how gun.js works for peer to peer database with sea.js.
 
   Current mode Development / Debug mode that is not config for production.
 
   To get gun.js to load real time to almost direct access to database from server to client and peer to peer connections from other clients.
+
+# Creating gun plugin:
+  There are different way to create just three types:
+- app global variable 
+- Provide and injext
+- file class instance
+
+  But not recommand to use ref proxy as it does work.
 
 # Features: (reworking...)
  * Peer to Peer database from gun.js.
@@ -66,7 +62,6 @@
  * https://github.com/amark/gun/wiki/SEA
  * https://github.com/amark/gun/wiki/auth
  * https://github.com/amark/gun/wiki/Security
- * https://github.com/amark/gun/wiki/Security,-Authentication,-Authorization
  * http://gun.js.org/explainers/data/security.html
  * https://gun.eco/explainers/data/security.html
 
