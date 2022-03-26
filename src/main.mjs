@@ -19,7 +19,11 @@ import gunPlugin from "./components/gun/gunPlugin.mjs";
 export function createApp() {
   const app = createSSRApp(App);
   app.config.unwrapInjectedRef = true
-  app.use(gunPlugin);
+  app.use(gunPlugin,{
+    peers:['http://localhost:3000/gun']
+    , localStorage: false
+    , isDebug:true
+  });
   const router = createRouter()
   app.use(router)
   return { app, router }

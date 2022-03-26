@@ -16,35 +16,48 @@ import 'gun/lib/promise.js';
 
 import SEA from 'gun/sea';
 import { Buffer } from 'buffer'
-if (typeof window !== "undefined"){
+if (typeof window !== "undefined"){// this is need for SSR ingore.
   window.Buffer = Buffer;
   window.setImmediate = setTimeout
 }
 
-
 import { 
-  AUTHSTATUSInjectKey
-, GUNInjectKey
-, GunInjectKey
-, INITGUNInjectKey
-, PAIRInjectKey
-, SIGNINInjectKey
-, SIGNOUTInjectKey
-, SIGNUPInjectKey
-, CHANGEPASSPRHASEInjectKey
-, SEAInjectKey
-
+    AUTHSTATUSInjectKey
+  , GUNInjectKey
+  , GunInjectKey
+  , PAIRInjectKey
+  , SIGNINInjectKey
+  , SIGNOUTInjectKey
+  , SIGNUPInjectKey
+  , CHANGEPASSPRHASEInjectKey
+  , SEAInjectKey
 } from "./GunKeys.mjs";
 
 export const gunPlugin = {
   install(app, options) {
+    //var gun = ref(null); // nope
+    console.log("init gun?")
+    var GUN_API_URL="http://localhost:3000"// needed? debug
 
-    const GUN_API_URL="http://localhost:3000"
+    options = options || {
+      peers:[GUN_API_URL + '/gun'],
+      localStorage: false
+    }
+    let isDebug = options.isDebug ? true : false;
 
-    //var gun = ref(null);
-    var gun = null;
-    //app.provide(GunInjectKey, gun)
-    //Gun tooks
+    const gun = Gun(options);
+    if(isDebug){
+      gun.on('hi', peer => {//peer connect
+        console.log('peer connect!');
+        //displayeffectmessage('Connect to peer!');
+      });
+      gun.on('bye', (peer)=>{// peer disconnect
+          console.log('Disconnected from peer!');
+      });
+    }
+    app.provide(GunInjectKey, gun) // set instance in vue
+
+    //Gun tools
     app.provide(GUNInjectKey, Gun)
     app.provide(SEAInjectKey, SEA)
 
@@ -53,27 +66,7 @@ export const gunPlugin = {
 
     const pair = ref(null);
     app.provide(PAIRInjectKey, pair)
-    // INIT GUN
-    function initGun(){
-      if(gun ==null){
-        const initgun = Gun({
-          peers:[GUN_API_URL + '/gun'],
-          localStorage: false
-        });
-        initgun.on('hi', peer => {//peer connect
-          console.log('peer connect!');
-          //displayeffectmessage('Connect to peer!');
-        });
-        initgun.on('bye', (peer)=>{// peer disconnect
-            console.log('Disconnected from peer!');
-        });
-        console.log("init gun?")
-        gun = initgun;
-        //console.log(gun)
-        app.provide(GunInjectKey, gun)//safe?
-      }
-    }
-    app.provide(INITGUNInjectKey, initGun)
+
     // LOGIN
     function login(username,passphrase){
       //console.log(gun)
@@ -124,7 +117,7 @@ export const gunPlugin = {
       console.log(user)
     }
     app.provide(SIGNOUTInjectKey, sigout)
-    //CHANGE PASSPHRASE
+    // CHANGE PASSPHRASE
     function changePassphrase(oldPassprahse, newPassphrase){
       const user = gun.user();
     }

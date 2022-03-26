@@ -1,6 +1,6 @@
 http://jsbin.com/zoyalumawu/edit?html,js,console
 
-```
+```js
 var gun = Gun();
 
 // include .open

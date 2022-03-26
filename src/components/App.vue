@@ -3,12 +3,19 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-import {INITGUNInjectKey} from "./gun/GunKeys.mjs";
+import {GunInjectKey} from "./gun/GunKeys.mjs";
 import { inject } from 'vue';
 import Login from "./gun/Login.vue";
 
-//const initGun = inject(INITGUNInjectKey);
-//initGun();// set up gun
+const gun = inject(GunInjectKey);
+
+gun.on('hi', peer => {//peer connect
+  console.log('peer connect!');
+  //displayeffectmessage('Connect to peer!');
+});
+gun.on('bye', (peer)=>{// peer disconnect
+  console.log('Disconnected from peer!');
+});
 
 </script>
 <template>

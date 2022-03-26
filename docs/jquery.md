@@ -3,14 +3,14 @@
 # Information:
  Simple tips and learning for jquery.
 
-```
+```js
 $('#view').html(html_privatemessage);//not used this way, might leak?
 $('#view').empty().append(html_privatemessage);//use this way it clean up handlers
 ```
 
 https://jsfiddle.net/fp7hLx7g/ jquery ui effect test.
 
-```
+```js
 $("#child2").css("height", ($("#parent").height()-$("#child1").height()));
 $( window ).resize(function() {
     //child2 > parent > child1
@@ -18,7 +18,7 @@ $( window ).resize(function() {
 });
 ```
 
-```
+```js
   // Dynamically building an unordered list from an array
   var localArr = ["Greg", "Peter", "Kyle", "Danny", "Mark"],
   	list = $("ul.people"),
@@ -33,8 +33,7 @@ $( window ).resize(function() {
   list.append(dynamicItems);
 ```
 
-```
-
+```js
   var list = $("#longlist");
 
   list.on("mouseenter", "li", function(){

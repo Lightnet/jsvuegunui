@@ -3,7 +3,7 @@
 Links:
  * https://scotch.io/tutorials/javascript-promises-for-dummies
 
-```
+```js
 const isMomHappy = true;
 
 	// Promise

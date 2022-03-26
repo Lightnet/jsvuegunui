@@ -36,6 +36,62 @@
 
   But not recommand to use ref proxy as it does work.
 
+GunKeys.mjs
+```js
+export const GunInjectKey = Symbol();
+```
+
+
+gunPlugin.mjs
+```js
+import Gun from "gun/gun"
+import 'gun/lib/radix.js';
+import 'gun/lib/radisk.js';
+import 'gun/lib/store.js';
+import 'gun/lib/rindexed.js';
+import 'gun/lib/promise.js';
+import SEA from 'gun/sea';
+import { Buffer } from 'buffer'
+if (typeof window !== "undefined"){
+  window.Buffer = Buffer;
+  window.setImmediate = setTimeout
+}
+import { GunInjectKey } from "./GunKeys.mjs";
+export const gunPlugin = {
+  install(app, options) {
+    options = options || {
+      peers:['http://localhost:3000/gun'],
+      localStorage: false
+    }
+    const gun = Gun(options);
+    if(isDebug){// this for checking connection to gun server.
+      gun.on('hi', peer => {//peer connect
+        console.log('peer connect!');
+      });
+      gun.on('bye', (peer)=>{// peer disconnect
+          console.log('Disconnected from peer!');
+      });
+    }
+    app.provide(GunInjectKey, gun) // set instance in vue
+  }
+}
+export default gunPlugin;
+```
+
+Client.js
+```js
+import { createApp } from 'vue'
+import App from './App.vue';
+app.use(gunPlugin,{
+  peers:['http://localhost:3000/gun']
+  , localStorage: false
+  , isDebug:true
+});
+const app = createApp(App);
+app.use(gunPlugin);
+app.mount('#app');
+```
+
 # Features: (reworking...)
  * Peer to Peer database from gun.js.
  * SEA.js (Security, Encryption, Authorization) from gun.js
@@ -44,9 +100,9 @@
  * Alias Contacts (Add/Remove)
  * Login, Sign up, Forgot Password Hint (Simple | Broken)
  * Change Password (Simple)
- * Chat Message (Timegraph)
+ * Chat Message (gun RAD)
  * To Do List (Add / Edit /Remove) (user auth not working / gun working)
- * Added simple loading screen since javascript take a while to load.
+ * Added simple loading screen since javascript take a while to load.(not added / rework)
 
 # Notes:
  * Not config for development and production.
@@ -56,6 +112,7 @@
 
 # Bugs:
  * gun.user there might be some bug that doesn't load correctly. null and boolean are not working for some reason to set variable into graph. But not using sea.js it works.
+ * hot reload variable some time does not update due to coding how to mount and unmount.
 
 # Links:
  * https://gun.eco/docs/SEA

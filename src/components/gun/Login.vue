@@ -49,31 +49,31 @@ export default {
     </div>
   </template>
   <template v-if="authStatus=='unauth' || authStatus=='login'">
-  <div>
-    <table>
-      <tbody>
-        <tr>
-          <td>Login Status:</td>
-          <td>{{status}} {{authStatus}}</td>
-        </tr>
-        <tr>
-          <td>User:</td>
-          <td><input v-model="username"></td>
-        </tr>
-        <tr>
-          <td>Password:</td>
-          <td><input v-model="passphrase"></td>
-        </tr>
-        <tr>
-          <td style=" text-align: center;" colspan="2">
-            <button @click="clickRegister">Register</button>
-            <button @click="clickForgot">Forgot</button>
-            <button @click="clickLogin">Login</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div>
+      <table>
+        <tbody>
+          <tr>
+            <td>Login Status:</td>
+            <td>{{status}}</td>
+          </tr>
+          <tr>
+            <td>User:</td>
+            <td><input v-model="username"></td>
+          </tr>
+          <tr>
+            <td>Password:</td>
+            <td><input v-model="passphrase"></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;" colspan="2">
+              <button @click="clickRegister">Register</button>
+              <button @click="clickForgot">Forgot</button>
+              <button @click="clickLogin">Login</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </template>
 </template>
 <style>

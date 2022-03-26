@@ -5,11 +5,21 @@
 */
 
 import { inject } from "vue";
-import { AUTHSTATUSInjectKey, INITGUNInjectKey} from "./components/gun/GunKeys.mjs";
-const authStatus = inject(AUTHSTATUSInjectKey);
-const initGun = inject(INITGUNInjectKey);
+import { AUTHSTATUSInjectKey, GunInjectKey} from "./components/gun/GunKeys.mjs";
 
-initGun();//init gun 
+console.log("SSR CLIENT APP")
+const authStatus = inject(AUTHSTATUSInjectKey);
+//const gun = inject(GunInjectKey);
+//console.log(gun);
+
+//does not work here...
+//gun.on('hi', peer => {//peer connect
+  //console.log('peer connect!');
+  //displayeffectmessage('Connect to peer!');
+//});
+//gun.on('bye', (peer)=>{// peer disconnect
+  //console.log('Disconnected from peer!');
+//});
 
 </script>
 <template>

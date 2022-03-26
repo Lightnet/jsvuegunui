@@ -1,3 +1,6 @@
+# Information:
+    Not used. Outdate. Used by gun RAD format. https://gun.eco/docs/RAD
+
 //gun.get('@').time((data, key, time)=>{ // subscribe to all incoming posts
 	//console.log(data);
     // data might be a soul that you have to GET, I haven't made `time` be chainable yet
