@@ -1,6 +1,6 @@
 # jsvuegunui
 
-Created by: Lightnet
+# Created by: Lightnet
 
 # License:
  MIT
@@ -30,10 +30,6 @@ Created by: Lightnet
   This project used:
    * Vuejs
    * Babeljs
-   * Jquery
-   * Jquery UI
-   * Webpack
-   * Gulp
 
   The project has auto build script compiler that is being used for gulp, babel, webpack and other libraries to develop small but compact file. It can be install npm (node package manager) by command line for easy setup. The database is develop mode that not config for production. Simple access and post and private message system. The project has some simple examples to how gun.js works for peer to peer database with sea.js.
 
@@ -62,12 +58,6 @@ Created by: Lightnet
 # Bugs:
  * gun.user there might be some bug that doesn't load correctly. null and boolean are not working for some reason to set variable into graph. But not using sea.js it works.
 
-# Project Links:
- * https://glitch.com/edit/#!/jsvuegunui
- * https://jsvuegunui.glitch.me/
- * https://glitch.com/edit/#!/join/57279c38-2db3-455c-b1fd-d2b08e5d4aad
- * https://github.com/Lightnet/jsvuegunui
- 
 # Links:
  * https://gun.eco/docs/SEA
  * https://github.com/amark/gun/wiki/SEA

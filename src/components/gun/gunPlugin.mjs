@@ -3,9 +3,25 @@
   Created by: Lightnet
 */
 
+// https://github.com/amark/gun/issues/1209
+
 import { ref } from "vue";
+
 import Gun from "gun/gun"
+import 'gun/lib/radix.js';
+import 'gun/lib/radisk.js';
+import 'gun/lib/store.js';
+import 'gun/lib/rindexed.js';
+import 'gun/lib/promise.js';
+
 import SEA from 'gun/sea';
+import { Buffer } from 'buffer'
+if (typeof window !== "undefined"){
+  window.Buffer = Buffer;
+  window.setImmediate = setTimeout
+}
+
+
 import { 
   AUTHSTATUSInjectKey
 , GUNInjectKey
@@ -39,7 +55,10 @@ export const gunPlugin = {
     // INIT GUN
     function initGun(){
       if(gun.value ==null){
-        const initgun = Gun(GUN_API_URL + '/gun');
+        const initgun = Gun({
+          peers:[GUN_API_URL + '/gun'],
+          localStorage: false
+        });
         initgun.on('hi', peer => {//peer connect
           console.log('peer connect!');
           //displayeffectmessage('Connect to peer!');

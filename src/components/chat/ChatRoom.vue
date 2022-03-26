@@ -1,92 +1,116 @@
-<template>
-    <div>
-        <div id="chatmessagebox" class="col-container" style="">
-            <div id="messagebox" class="col" style="background-color:#aaa;overflow-y: scroll;">
-                <div v-for="item in messages" :key="item.id">
-                    {{ item.alias }} | > | {{ item.message }}
-                </div>
-            </div>
-            <div class="col" style="width:100px; background-color:#bbb;"></div>
-        </div>
-        <div style="height:40px;width:100%;background-color:gray;">
-            <div class="chatboxinput">
-                <input type="text" size="63" v-model="message" v-on:keyup.enter="sendmessage" />
-                <input type="submit" value="Send" @click="sendmessage" />
-            </div>
-        </div>
-    </div>
-</template>
-
 <script>
-import $ from 'jquery';
 
+
+// https://gun.eco/docs/RAD#api
+// https://github.com/amark/gun/issues/1209
+
+import {unixTime} from "../../libs/helper.mjs";
+import { toRaw } from "vue";
+import { GunInjectKey,SEAInjectKey } from "../gun/GunKeys.mjs";
 export default {
-    components: {
-    },
-    data() {
-        return {
-            chatdata:null,
-            messages:[],
-            message:''
-        }
-    },
-    mounted(){
-        
-        let $win = $(window);
-        $("#chatmessagebox").height($win.height()-114);
-        $win.on('resize',function(){
-            $("#chatmessagebox").height($win.height()-114);
-        });
-        
-        
-        $("#messagebox").height($win.height()-120);
-        $win.on('resize',function(){
-            $("#messagebox").height($win.height()-120);
-        });
-        
-    },
-    created(){
-        let gun = this.$gun;
-        this.chatroom = gun.get('chatroom');
-        let self = this;
-        this.chatroom.time((data, key, time)=>{//listen setup
-            gun.get(data['#']).once((d,id)=>{
-                //console.log(id);
-                //console.log(d);
-                //console.log(d.message);
-                self.messages.push({id:id,alias:d.alias,message:d.message});
-                //self.messages.unshift({id:id,alias:d.alias,message:d.message});
-                self.updatechatscoll();
-            });
-        },20);//number display when loaded and time is trigger here if push.
-        //self.messages.reverse();
-    },
-    methods: {
-        sendmessage(){
-            //this.message
-            let user = this.$gun.user();
-            if(!this.message){
-                return;
-            }
-            console.log(user.is.alias);
-            this.$gun.get('chatroom').time({alias:user.is.alias,message:this.message},(ack)=>{
-                console.log(ack);
-            });
-            this.message = "";
-        },
-        updatechatscoll(){
-            setTimeout(()=>{
-                let element = document.getElementById("messagebox");
-                element.scrollTop = element.scrollHeight;
-            },50);
-        }
+  inject:{
+    gun:{from:GunInjectKey},
+    SEA:{from:SEAInjectKey}
+  },
+  components: {
+  },
+  data() {
+    return {
+      messages:[],
+      message:"",
+      secret:"public",
+      chatroom:null
     }
+  },
+  mounted(){      
+
+  },
+  created(){
+    this.initChat()
+  },
+  methods: {
+    initChat(){
+      this.chatroom = this.gun.get('chatroom');
+      //this.chatroom.map().once(this.qcallback);
+
+      let createTime = unixTime();
+      console.log(createTime)
+      createTime = createTime - (1000 )
+
+      //this.chatroom.get({'.': {'>': String(createTime)},'%': 50000}).once().map().once(this.qcallback);
+      this.chatroom.get({'.': {'>': String(createTime)},'%': 100}).once().map().once(this.qcallback);
+    },
+    async qcallback(data,key){
+      console.log('incoming messages...')
+      //console.log("data",data);
+      if(data == null)return;
+      if(data.message != null){
+        
+        //console.log(this.secret)
+        //let enc = this.secret;
+        //console.log("this.secret",this.secret)
+        let enc = await this.SEA.work("public","chat");
+        let msg = await this.SEA.decrypt(data.message,enc);
+        //console.log("MESSAGE",msg);
+        if(!msg){// if fail decode skip
+          return;
+        }
+        let element = {id:key,alias:data.alias, message:msg};
+        this.messages = [...this.messages,element];
+        this.updatechatscoll()
+      }
+    },
+    async sendmessage(){
+      //this.message
+      let user = this.gun.user();
+      if(!this.message){
+        return;
+      }
+      let createTime = unixTime();
+      //console.log(user.is.alias);
+      
+      let sec = await this.SEA.work("public","chat");//encrypttion key default?
+      let enc = await this.SEA.encrypt(this.message,sec);
+
+      this.gun.get('chatroom').get(createTime).put({
+        alias:user.is.alias,
+        message:enc
+      },(ack)=>{
+        console.log(ack);
+      });
+      this.message = "";
+      
+    },
+    updatechatscoll(){
+      setTimeout(()=>{
+        let element = document.getElementById("messagebox");
+        element.scrollTop = element.scrollHeight;
+      },50);
+    }
+  }
 }
 </script>
-
+<template>
+  <div style="height:100%;">
+    <div id="chatmessagebox" class="col-container" style="height:calc(100% - 40px);">
+      <div id="messagebox" class="col" style="height:calc(100% - 10px);background-color:#aaa;overflow-y: scroll;">
+        <div v-for="item in messages" :key="item.id">
+          {{ item.alias }} | > | {{ item.message }}
+        </div>
+      </div>
+      <div class="col" style="width:100px; background-color:#bbb;"></div>
+    </div>
+    <div style="height:40px;width:100%;background-color:gray;">
+      <div class="chatboxinput">
+        <input type="text" size="63" v-model="message" @change="sendmessage" />
+        <input type="submit" value="Send" @click="sendmessage" />
+      </div>
+    </div>
+  </div>
+</template>
 <style>
 .chatboxinput{
-    padding: 8px;
-    /*border: 1px solid #4CAF50;*/
+  padding: 8px;
+  /*border: 1px solid #4CAF50;*/
 }
 </style>

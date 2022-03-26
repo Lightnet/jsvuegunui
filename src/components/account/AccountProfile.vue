@@ -24,28 +24,26 @@ export default {
       let user = this.gun.user();
       let find = this.gun.user();
       user.get('profile').get('alias').once(ack=>{
-        console.log(ack)
+        //console.log(ack)
         self.alias=ack;
       })
       user.get('profile').get('born').once(ack=>{
-        console.log(ack)
+        //console.log(ack)
         self.born=ack;
       })
       user.get('profile').get('education').once(ack=>{
-        console.log(ack)
+        //console.log(ack)
         self.education=ack;
       })
       user.get('profile').get('alias').once(ack=>{
-        console.log(ack)
+        //console.log(ack)
         self.alias=ack;
       })
       user.get('profile').get('skills').once(ack=>{
-        console.log(ack)
+        //console.log(ack)
         self.skills=ack;
       })
-      //console.log(Gun.node)
-      
-      console.log("test....")
+
       /*
       find.get('profile').on(function(data, key, at, ev){//get map data
         //console.log(data);
@@ -61,7 +59,6 @@ export default {
           var mix = await Gun.SEA.secret(await find.get('epub').then(), user.pair());
           key = await Gun.SEA.decrypt(key, mix);
           var val = await Gun.SEA.decrypt(v, key);
-
           if(k == 'alias'){
             self.alias = val || v
           }
@@ -94,9 +91,9 @@ export default {
     },
     
     async inputProfileName(event){
-      console.log("value",event.target.value);
-      console.log("name",event.target.name);
-      console.log("type",event.target.type);
+      //console.log("value",event.target.value);
+      //console.log("name",event.target.name);
+      //console.log("type",event.target.type);
       let user = this.gun.user();
       //user.get('profile').get('skills').secret(this.skills,ack=>{
         //console.log(ack);

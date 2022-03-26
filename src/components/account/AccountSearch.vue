@@ -79,9 +79,6 @@ export default {
         console.log(ack)
         self.skills=ack;
       })
-
-
-
       /*
       find.get('profile').on(function(data, key, at, ev){//get map data
         //console.log(data);
