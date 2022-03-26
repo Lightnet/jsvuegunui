@@ -62,27 +62,27 @@ export default {
 }
 </script>
 <template>
-    <div>
-        Recover Hint Passphase:
-        <table>
-          <tbody>
-            <tr>
-                <td>Question 1</td>
-                <td><input v-model="question1"></td>
-            </tr>
-            <tr>
-                <td>Question 1</td>
-                <td><input v-model="question2"></td>
-            </tr>
-            <tr>
-                <td>Hint</td>
-                <td><input v-model="hint"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button @click="clickchangehint">Sumbit</button></td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
+  <div>
+    Recover Hint Passphase:
+    <table>
+      <tbody>
+        <tr>
+          <td>Question 1</td>
+          <td><input v-model="question1"></td>
+        </tr>
+        <tr>
+          <td>Question 1</td>
+          <td><input v-model="question2"></td>
+        </tr>
+        <tr>
+          <td>Hint</td>
+          <td><input v-model="hint"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button @click="clickchangehint">Sumbit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>

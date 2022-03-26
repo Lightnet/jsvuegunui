@@ -1,10 +1,15 @@
 <script setup>
-  import AccountInfo from "./AccountInfo.vue";
-  import AccountProfile from "./AccountProfile.vue";
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
+
+import AccountInfo from "./AccountInfo.vue";
+import AccountProfile from "./AccountProfile.vue";
 </script>
 <template>
-  <AccountInfo />
-  <AccountProfile />
+  <account-info />
+  <account-profile />
 </template>
 <style>
 </style>

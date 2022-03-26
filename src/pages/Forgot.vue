@@ -1,5 +1,5 @@
 <script setup>
-import Forgot from "../components/gun/Forgot.vue";
+import Forgot from "../components/account/Forgot.vue";
 </script>
 <template>
   <Forgot />

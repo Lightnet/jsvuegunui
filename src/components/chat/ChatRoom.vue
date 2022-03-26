@@ -1,11 +1,13 @@
 <script>
-
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
 // https://gun.eco/docs/RAD#api
 // https://github.com/amark/gun/issues/1209
 
 import {unixTime} from "../../libs/helper.mjs";
-import { toRaw } from "vue";
 import { GunInjectKey,SEAInjectKey } from "../gun/GunKeys.mjs";
 export default {
   inject:{
@@ -83,8 +85,10 @@ export default {
     },
     updatechatscoll(){
       setTimeout(()=>{
-        let element = document.getElementById("messagebox");
-        element.scrollTop = element.scrollHeight;
+        if(typeof document !== "undefined"){
+          let element = document.getElementById("messagebox");
+          element.scrollTop = element.scrollHeight;
+        }
       },50);
     }
   }

@@ -1,4 +1,9 @@
 <script>
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
+
 import { toRaw, unref } from "vue";
 import { GunInjectKey } from "../gun/GunKeys.mjs";
 export default {
@@ -89,7 +94,6 @@ export default {
       //console.log(val)
       return val || _value;
     },
-    
     async inputProfileName(event){
       //console.log("value",event.target.value);
       //console.log("name",event.target.name);
@@ -114,27 +118,27 @@ export default {
 }
 </script>
 <template>
-    <div>
-      Profile: (Press Enter to update profile.)
-      <table>
-        <tbody>
-          <tr>
-            <td>Alias</td>
-            <td><input name="alias" @change="inputProfileName" v-model="alias"><button @click="grant('alias')">+</button></td>
-          </tr>
-          <tr>
-            <td>Born</td>
-            <td><input name="born" @change="inputProfileName" v-model="born"><button @click="grant('born')">+</button></td>
-          </tr>
-          <tr>
-            <td>Education</td>
-            <td><input name="education" @change="inputProfileName" v-model="education"><button @click="grant('education')">+</button></td>
-          </tr>
-          <tr>
-            <td>Skills</td>
-            <td><input name="skills" @change="inputProfileName" v-model="skills"><button @click="grant('skills')">+</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div>
+    Profile: (Press Enter to update profile.)
+    <table>
+      <tbody>
+        <tr>
+          <td>Alias</td>
+          <td><input name="alias" @change="inputProfileName" v-model="alias"><button @click="grant('alias')">+</button></td>
+        </tr>
+        <tr>
+          <td>Born</td>
+          <td><input name="born" @change="inputProfileName" v-model="born"><button @click="grant('born')">+</button></td>
+        </tr>
+        <tr>
+          <td>Education</td>
+          <td><input name="education" @change="inputProfileName" v-model="education"><button @click="grant('education')">+</button></td>
+        </tr>
+        <tr>
+          <td>Skills</td>
+          <td><input name="skills" @change="inputProfileName" v-model="skills"><button @click="grant('skills')">+</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>

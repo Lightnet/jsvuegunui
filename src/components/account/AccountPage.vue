@@ -1,7 +1,9 @@
 <script setup>
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
-//import AccountInfo from './AccountInfo.vue';
-//import AccountProfile from './AccountProfile.vue';
 import { ref, shallowRef } from 'vue';
 import AccountIndex from './AccountIndex.vue';
 import AccountChangePassphrase from './AccountChangePassPhrase.vue';

@@ -41,8 +41,9 @@ export const gunPlugin = {
 
     const GUN_API_URL="http://localhost:3000"
 
-    const gun = ref(null);
-    app.provide(GunInjectKey, gun)
+    //var gun = ref(null);
+    var gun = null;
+    //app.provide(GunInjectKey, gun)
     //Gun tooks
     app.provide(GUNInjectKey, Gun)
     app.provide(SEAInjectKey, SEA)
@@ -54,7 +55,7 @@ export const gunPlugin = {
     app.provide(PAIRInjectKey, pair)
     // INIT GUN
     function initGun(){
-      if(gun.value ==null){
+      if(gun ==null){
         const initgun = Gun({
           peers:[GUN_API_URL + '/gun'],
           localStorage: false
@@ -67,8 +68,9 @@ export const gunPlugin = {
             console.log('Disconnected from peer!');
         });
         console.log("init gun?")
-        gun.value = initgun;
+        gun = initgun;
         //console.log(gun)
+        app.provide(GunInjectKey, gun)//safe?
       }
     }
     app.provide(INITGUNInjectKey, initGun)
@@ -77,7 +79,7 @@ export const gunPlugin = {
       //console.log(gun)
       //console.log(username)
       //console.log(passphrase)
-      const user = gun.value.user();
+      const user = gun.user();
       return  new Promise((resolve, reject) => {
         user.auth(username, passphrase,(ack)=>{
           //console.log(ack);
@@ -98,7 +100,7 @@ export const gunPlugin = {
     app.provide(SIGNINInjectKey, login)
     // SIGNUP
     async function signup(username,passphrase){
-      const user = gun.value.user();
+      const user = gun.user();
       return  new Promise((resolve, reject) => {
         user.create(username, passphrase, function(ack){
           //console.log(ack);
@@ -117,14 +119,14 @@ export const gunPlugin = {
     app.provide(SIGNUPInjectKey, signup)
     // SIGNOUT
     function sigout(){
-      const user = gun.value.user();
+      const user = gun.user();
       user.leave();
       console.log(user)
     }
     app.provide(SIGNOUTInjectKey, sigout)
     //CHANGE PASSPHRASE
     function changePassphrase(oldPassprahse, newPassphrase){
-      const user = gun.value.user();
+      const user = gun.user();
     }
     app.provide(CHANGEPASSPRHASEInjectKey, changePassphrase)
   }

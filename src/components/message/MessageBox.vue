@@ -1,12 +1,14 @@
 <script>
 import { toRaw } from "vue";
-import { GunInjectKey } from "../gun/GunKeys.mjs";
+import { GunInjectKey,SEAInjectKey } from "../gun/GunKeys.mjs";
 export default {
   inject:{
-    gun:{from:GunInjectKey}
+    gun:{from:GunInjectKey},
+    SEA:{from:SEAInjectKey},
   },
   components: {
   },
+  
   data() {
     return {
       messages:[],
@@ -42,6 +44,7 @@ export default {
       }
     },
     async sendprivatemessage(){
+      console.log("SEND MESSAGE...")
       let user = this.gun.user();
       let gun = this.gun;
       //let userprivatemessageid = await user.get('privatemessage').get('key').then();//create private message table incase of spam
@@ -54,18 +57,21 @@ export default {
       let to = gun.user(pub);//get alias
       let who = await to.then() || {};//get alias data
       if(!who.alias){
-          //console.log("No Alias!");
-          return;
+        //console.log("No Alias!");
+        return;
       }
       //console.log(who);
-      let sec = await Gun.SEA.secret(who.epub, toRaw(user._.sea)); // Diffie-Hellman
-      let enc = await Gun.SEA.encrypt(message, sec); //encrypt message
+      console.log(toRaw(who));
+      console.log(message)
+
+      let sec = await this.SEA.secret(toRaw(who).epub, toRaw(user._.sea)); // Diffie-Hellman
+      let enc = await this.SEA.encrypt(message, sec); //encrypt message
+      console.log(enc);
       //console.log(to);
       user.get('messages').get(pub).set(enc);
       this.messagecontent = '';
     },
     async viewprivatemessages(){
-      console.log("view messages");
       let user = this.gun.user();
       let gun = this.gun;
       this.messages = [];
@@ -79,37 +85,32 @@ export default {
       let to = gun.user(pub);//get alias
       let who = await to.then() || {};//get alias data
       if(!who.alias){
-          console.log("No Alias!");
-          this.messages = [];
-          return;
+        console.log("No Alias!");
+        this.messages = [];
+        return;
       }
-      this.UI.dec = await Gun.SEA.secret(who.epub, toRaw(user._.sea)); // Diffie-Hellman
-      //console.log(user);
-      //this.UI.alias = user.is.alias;
-      console.log("getting message");
-      //user.get('messages').off();
+      this.UI.dec = await this.SEA.secret(who.epub, user._.sea); // Diffie-Hellman
+      console.log("INIT MESSAGES");
+      let self= this;
+      //user.get('messages').get(pub).once().map().once((data,id)=>{
       user.get('messages').get(pub).map().once((data,id)=>{
-          this.UI(data,id,user.is.alias)
+        console.log("TO USER")
+        self.UI(data,id,user.is.alias)
       });
-      //console.log(to);
-      //this.UI.alias = who.alias;
-      //to.get('messages').off();
-      console.log(toRaw(user._.sea))
-      to.get('messages').get(toRaw(user._.sea).pub).map().once((data,id)=>{
-          this.UI(data,id,who.alias)
+      //to.get('messages').get(user._.sea.pub).once().map().once((data,id)=>{
+      to.get('messages').get(user._.sea.pub).map().once((data,id)=>{
+        console.log("TO OWNER")
+        self.UI(data,id,who.alias)
       });
       console.log("end messages");
     },
     async UI(say, id, alias){
-      //console.log("test????");
-      say = await Gun.SEA.decrypt(say, this.UI.dec);
-      //var li = $('#' + id).get(0) || $('<li>').attr('id', id).appendTo('ul');
-      //$(li).text(say);
-      //console.log(say);
-      //console.log(id);
+      console.log("SAY MESSAGES...")
+      //console.log(say)
+      say = await this.SEA.decrypt(say, this.UI.dec);
+      console.log(say)
       this.messages.push({id:id,alias:alias,message:say});
-      let element = document.getElementById("messagebox");
-      element.scrollTop = element.scrollHeight;
+      this.scrollDown();  
     },
     UpdateContactList(){
       let self = this;
@@ -177,8 +178,14 @@ export default {
         this.bfound = true;
         this.publickey = publickey;
         this.alias = who;
+        console.log("INIT MESSAGE?????.......")
+        this.viewprivatemessages();
       }
-      this.viewprivatemessages();
+      
+    },
+    scrollDown(){
+      let element = document.getElementById("messagebox");
+      element.scrollTop = element.scrollHeight+10;
     }
   }
 }
@@ -207,7 +214,8 @@ export default {
           <button @click="removecontact">Remove</button>
         </template>
       <label>Status:{{statussearch}}</label>
-      <br>Content:<textarea v-model="messagecontent" v-on:keyup.enter="sendprivatemessage"> </textarea> <button @click="sendprivatemessage">Send</button>
+      <br>Content:<textarea v-model="messagecontent" v-on:keyup.enter="sendprivatemessage" />  
+      <button @click="sendprivatemessage">Send</button>
     </div>
   </div>
 </template>

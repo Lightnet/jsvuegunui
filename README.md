@@ -5,6 +5,9 @@
 # License:
  MIT
 
+# Notes:
+  - Not recommand to use gun instance on ref() or proxy.
+
 # Required:
  * nodejs
  * npm

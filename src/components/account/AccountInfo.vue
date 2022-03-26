@@ -1,4 +1,8 @@
 <script>
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
 import { GunInjectKey } from "../gun/GunKeys.mjs";
 export default {

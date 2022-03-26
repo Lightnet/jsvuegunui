@@ -7,9 +7,8 @@ import {INITGUNInjectKey} from "./gun/GunKeys.mjs";
 import { inject } from 'vue';
 import Login from "./gun/Login.vue";
 
-const initGun = inject(INITGUNInjectKey);
-
-initGun();// set up gun
+//const initGun = inject(INITGUNInjectKey);
+//initGun();// set up gun
 
 </script>
 <template>
