@@ -19,12 +19,6 @@ export default {
       dialog:null,
     }
   },
-  created(){
-    var user = this.gun.user();
-    //console.log(user);
-    //this.username = user.is.alias;
-    //this.pubid = user.is.pub;
-  },
   methods: {
     changepassphrase(){
       let user = this.gun.user();

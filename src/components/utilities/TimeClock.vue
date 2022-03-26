@@ -1,12 +1,9 @@
-<template>
-  <strong> Time: {{time}} </strong>
-</template>
-
 <script>
+import Gun from "gun/gun"
 export default {
   data () {
     return {
-      time:'',
+      time:'00:00:00',
       timer:null,
     }
   },
@@ -27,6 +24,8 @@ export default {
   }
 }
 </script>
-
+<template>
+  <strong> Time: {{time}} </strong>
+</template>
 <style>
 </style>

@@ -2,7 +2,7 @@
 import MessagePage from "../components/message/MessagePage.vue";
 </script>
 <template>
-  <MessagePage />
+  <message-page />
 </template>
 <style>
 </style>

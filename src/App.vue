@@ -4,9 +4,11 @@
   Created by: Lightnet
 */
 
-import { inject } from "vue";
+import { inject, ref } from "vue";
 import { AUTHSTATUSInjectKey, GunInjectKey} from "./components/gun/GunKeys.mjs";
-
+import TimeClock from "./components/utilities/TimeClock.vue"
+import Modal from "./components/modal/Modal.vue";
+import ViewSeaTool from "./components/seatools/ViewSeaTool.vue";
 console.log("SSR CLIENT APP")
 const authStatus = inject(AUTHSTATUSInjectKey);
 //const gun = inject(GunInjectKey);
@@ -21,6 +23,13 @@ const authStatus = inject(AUTHSTATUSInjectKey);
   //console.log('Disconnected from peer!');
 //});
 
+const isSeaTool1 = ref(false);
+const isSeaTool2 = ref(false);
+
+function onClose1(){
+  isSeaTool1.value=false;
+}
+
 </script>
 <template>
   <div>
@@ -30,13 +39,16 @@ const authStatus = inject(AUTHSTATUSInjectKey);
       <router-link to="/account">Account</router-link><span> | </span>
       <router-link to="/message">Message</router-link><span> | </span>
       <router-link to="/chat">Chat</router-link><span> | </span>
+      <router-link to="/groupmessage">Group Message</router-link><span> | </span>
       <router-link to="/graph">Graph</router-link><span> | </span>
+      <button @click="isSeaTool1 = !isSeaTool1"> Sea Tool 1</button><span> | </span>
       <router-link to="/logout">Logout</router-link><span> | </span>
     </template>
     <template v-else>
       <router-link to="/login">Login</router-link><span> | </span>
       <router-link to="/signup">Sign Up</router-link><span> | </span>
     </template>
+    <time-clock/>
     <!--<router-link to="/errorpage">error page</router-link><span> | </span>-->
   </div>
   <div style="height:calc(100% - 20px);width:calc(100% - 8px)">
@@ -46,6 +58,9 @@ const authStatus = inject(AUTHSTATUSInjectKey);
       </Suspense>
     </router-view>
   </div>
+  <Modal :isOpen="isSeaTool1" @onClose="onClose1">
+    <view-sea-tool/>
+  </Modal>
 </template>
 <style>
 </style>

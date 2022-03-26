@@ -1,61 +1,32 @@
-<template>
-    <div>
-        <accountinfo></accountinfo>
-        <indexnav></indexnav>
-        <div>
-            ToDoList
-            <BaseInputText 
-			v-model="newTodoText"
-			placeholder="New todo"
-			@keydown.enter.native="addTodo"
-		/>
-        
-		<div id="todolistscroll" style="overflow:auto;">
-			<ul v-if="todos.length">
-				<TodoListItem
-					v-for="todo in todos"
-					:key="todo.id"
-					:todo="todo"
-					@keydown.enter.native="editchange"
-					@edit="editTodo"
-					@remove="removeTodo"
-				/>
-			</ul>
-			<p v-else>
-				Nothing left in the list. Add a new todo in the input above.
-			</p>
-		</div>
-        </div>
-    </div>
-</template>
-
 <script>
-import AccountInfo from './AccountInfo.vue';
-import IndexNav from './IndexNav.vue';
-
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
+import { GunInjectKey } from "../gun/GunKeys.mjs";
 import BaseInputText from './todolist/BaseInputText.vue'
 import TodoListItem from './todolist/TodoListItem.vue'
 
 export default {
-    components: {
-        'indexnav':IndexNav,
-        'accountinfo':AccountInfo,
-        BaseInputText, 
-        TodoListItem
-    },
-    data() {
-        return {
-            todolistinput:'',
-            newTodoText: '',
-		    todoid:'',
+	inject:{
+    gun:{from:GunInjectKey}
+  },
+	components: {
+		BaseInputText, 
+		TodoListItem
+	},
+	data() {
+		return {
+			todolistinput:'',
+			newTodoText: '',
+			todoid:'',
 			todos: [],
 			todolistidhandle:'todolistscroll',
-        }
-    },
-    created(){
-        var user = this.$gun.user();
-        //console.log(user);
-		let gun = this.$root.$gun;
+		}
+	},
+	created(){
+		var user = this.gun.user();
+		//console.log(user);
 		this.gun_todolist = user.get('todolist');
 		let self = this;
 		this.gun_todolist.map().once(function(data, id){
@@ -66,10 +37,10 @@ export default {
 				text: data.text,
 				bedit: false,
 			});
-      	});
-    },
-    methods: {
-        addTodo () {
+		});
+	},
+	methods: {
+		addTodo () {
 			const trimmedText = this.newTodoText.trim();
 			//console.log('trimmedText',trimmedText);
 			if (trimmedText) {
@@ -94,14 +65,14 @@ export default {
 			});
 		},
 		isEmpty(str) {
-    		return (!str || 0 === str.length);
+				return (!str || 0 === str.length);
 		},
 		editchange(event){
 			//console.log(event);
 			//console.log(event.target.id);
 			let id = event.target.id;
 			let str_text = event.target.value;
-			let user = this.$gun.user();
+			let user = this.gun.user();
 
 			//console.log(this.isEmpty(str_text));
 			if(this.isEmpty(str_text)){
@@ -128,13 +99,38 @@ export default {
 			//this.$root.user.get('thoughts').get(idToRemove).once(function(value){
 				//console.log(value);
 			//});
-            //this.$root.user.get('thoughts').get(idToRemove).put(undefined);
-            var user = this.$gun.user();
+			//this.$root.user.get('thoughts').get(idToRemove).put(undefined);
+			var user = this.gun.user();
 			user.get('todolist').get(idToRemove).put('null');
 			this.todos = this.todos.filter(todo => {
 				return todo.id !== idToRemove
 			});
 		}
-    }
+	}
 }
 </script>
+<template>
+	<div>
+    <label> To Do List:</label>
+		<BaseInputText 
+			v-model="newTodoText"
+			placeholder="New todo"
+			@keydown.enter.native="addTodo"
+		/>    
+		<div id="todolistscroll" style="overflow:auto;">
+			<ul v-if="todos.length">
+				<TodoListItem
+					v-for="todo in todos"
+					:key="todo.id"
+					:todo="todo"
+					@keydown.enter.native="editchange"
+					@edit="editTodo"
+					@remove="removeTodo"
+				/>
+			</ul>
+			<p v-else>
+				Nothing left in the list. Add a new todo in the input above.
+			</p>
+		</div>
+  </div>
+</template>

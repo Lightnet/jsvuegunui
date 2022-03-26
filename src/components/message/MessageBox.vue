@@ -7,8 +7,7 @@ export default {
     SEA:{from:SEAInjectKey},
   },
   components: {
-  },
-  
+  },  
   data() {
     return {
       messages:[],

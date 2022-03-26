@@ -2,7 +2,7 @@
 import GraphPage from "../components/graph/GraphPage.vue";
 </script>
 <template>
-  <GraphPage />
+  <graph-page />
 </template>
 <style>
 </style>

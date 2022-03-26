@@ -13,9 +13,9 @@ const app = getCurrentInstance()
 const props = defineProps({
   isOpen:Boolean,
   width:String,
-  height:String
+  height:String,
 });
-console.log(props)
+//console.log(props)
 const isOpen = ref(props.isOpen ? true : false)
 watch(props,()=>{
   if(typeof props.isOpen === 'boolean'){
@@ -32,6 +32,7 @@ const positions = reactive({clientX:0,clientY:0,movementX:0,movementY:0,})
 
 function onClose(){
   //console.log(isOpen.value);
+  emits('onClose')
   isOpen.value=false;
 }
 
