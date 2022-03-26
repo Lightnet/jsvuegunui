@@ -11,20 +11,20 @@ export default {
   },
   components: {
   },
-    data() {
-      return {
-        oldpassphrase:'',
-        newpassphrase:'',
-        message:'Hello World',
-        dialog:null,
-      }
-    },
-    created(){
-      var user = this.gun.user();
-      //console.log(user);
-      //this.username = user.is.alias;
-      //this.pubid = user.is.pub;
-    },
+  data() {
+    return {
+      oldpassphrase:'',
+      newpassphrase:'',
+      message:'Hello World',
+      dialog:null,
+    }
+  },
+  created(){
+    var user = this.gun.user();
+    //console.log(user);
+    //this.username = user.is.alias;
+    //this.pubid = user.is.pub;
+  },
   methods: {
     changepassphrase(){
       let user = this.gun.user();

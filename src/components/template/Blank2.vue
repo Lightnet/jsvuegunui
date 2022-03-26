@@ -9,19 +9,19 @@ export default {
     gun:{from:GunInjectKey}
   },
   props: ['foo'],
-  components: {
+  setup(props,context){
+    console.log(context.attrs)
 
-  },
-  data() {
+    const closeModal = ()=>{
+      context.emit('close' /* pass payload here */)
+    }
+
     return {
-      
+      closeModal
     }
-  },
-  methods: {
-    foo(){
 
-    }
   }
+  
 }
 </script>
 <template>
