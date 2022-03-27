@@ -7,7 +7,6 @@
 import { inject, ref } from "vue";
 import { AUTHSTATUSInjectKey, GunInjectKey} from "./components/gun/GunKeys.mjs";
 import TimeClock from "./components/utilities/TimeClock.vue"
-import Modal from "./components/modal/Modal.vue";
 import ViewSeaTool from "./components/seatools/ViewSeaTool.vue";
 console.log("SSR CLIENT APP")
 const authStatus = inject(AUTHSTATUSInjectKey);
@@ -26,12 +25,13 @@ const authStatus = inject(AUTHSTATUSInjectKey);
 const isSeaTool1 = ref(false);
 const isSeaTool2 = ref(false);
 
-function onClose1(){
+function onCloseModal1(){
   isSeaTool1.value=false;
 }
 
 </script>
 <template>
+
   <div>
     <router-link to="/">Home</router-link><span> | </span>
     <router-link to="/about">About</router-link><span> | </span>
@@ -41,15 +41,18 @@ function onClose1(){
       <router-link to="/chat">Chat</router-link><span> | </span>
       <router-link to="/groupmessage">Group Message</router-link><span> | </span>
       <router-link to="/graph">Graph</router-link><span> | </span>
-      <button @click="isSeaTool1 = !isSeaTool1"> Sea Tool 1</button><span> | </span>
+      <view-sea-tool/><span> | </span>
       <router-link to="/logout">Logout</router-link><span> | </span>
     </template>
     <template v-else>
       <router-link to="/login">Login</router-link><span> | </span>
       <router-link to="/signup">Sign Up</router-link><span> | </span>
     </template>
-    <time-clock/>
-    <!--<router-link to="/errorpage">error page</router-link><span> | </span>-->
+    
+    <!--
+      <time-clock/>
+      <router-link to="/errorpage">error page</router-link><span> | </span>
+      -->
   </div>
   <div style="height:calc(100% - 20px);width:calc(100% - 8px)">
     <router-view v-slot="{ Component }">
@@ -58,9 +61,15 @@ function onClose1(){
       </Suspense>
     </router-view>
   </div>
-  <Modal :isOpen="isSeaTool1" @onClose="onClose1">
+  <!--
+  <my-modal :isMobile="false" >
     <view-sea-tool/>
-  </Modal>
+  </my-modal>
+  -->
 </template>
 <style>
 </style>
+
+<!--
+    
+    -->

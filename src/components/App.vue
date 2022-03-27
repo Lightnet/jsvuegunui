@@ -5,24 +5,13 @@
 */
 import {GunInjectKey} from "./gun/GunKeys.mjs";
 import { inject } from 'vue';
-import Login from "./gun/Login.vue";
-
 const gun = inject(GunInjectKey);
-
-gun.on('hi', peer => {//peer connect
-  console.log('peer connect!');
-  //displayeffectmessage('Connect to peer!');
-});
-gun.on('bye', (peer)=>{// peer disconnect
-  console.log('Disconnected from peer!');
-});
-
 </script>
 <template>
-<div>
-  <!--<label> Hello World</label>-->
-  <Login />
-</div>
+  <div>
+  <label> Hello World</label>
+  <!---->
+  </div>
 </template>
 
 <style>
