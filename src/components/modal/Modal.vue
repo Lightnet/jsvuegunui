@@ -25,7 +25,7 @@ const props = defineProps({
 
 console.log("modal... props")
 console.log(props)
-const isOpen = ref(true)
+const isOpen = ref(false)
 const x = ref(props.x || 0)
 const y = ref(props.y || 0)
 console.log(typeof props.x)
@@ -49,12 +49,9 @@ const emits = defineEmits(['onClose','pos']);
 const width = ref(props.width)
 const height = ref(props.height)
 
-
 const isMobile = ref(props.isMobile)
 const modal = ref()
 const modalDrag = ref()
-
-
 
 function onClose(){
   //console.log(isOpen.value);
