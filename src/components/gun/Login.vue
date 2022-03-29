@@ -19,6 +19,11 @@ export default {
       passphrase:'12345678',
     }
   },
+  mounted(){
+    console.log("MOUNT")
+    console.log(this.$refs.inputRef)
+    this.$refs.inputRef.focus()
+  },
   methods: {
     async clickLogin(){
       try{
@@ -58,7 +63,7 @@ export default {
           </tr>
           <tr>
             <td>User:</td>
-            <td><input v-model="username"></td>
+            <td><input ref="inputRef" v-model="username"></td>
           </tr>
           <tr>
             <td>Password:</td>

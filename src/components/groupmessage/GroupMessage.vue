@@ -15,7 +15,7 @@ const message = ref("");
 const messages = ref([]);
 let gunGroupMessage = null;
 let privateShareKey = null;
-const scrollMessages = ref();
+const scrollMessages = ref(null);
 
 getGroupList();
 
@@ -348,8 +348,9 @@ onUnmounted(()=>{
 function handleScrollDown(){
   //console.log("??scrollMessages.value")
   //console.log(scrollMessages.value)
-  if((scrollMessages.value)&&(scrollMessages.value?.scrollHeight!=null)){
-    scrollMessages.value.scrollTop = scrollMessages.value.scrollHeight + 10;
+  if((scrollMessages.value!=null)&&(scrollMessages.value?.scrollHeight!=null)){
+    //scrollMessages.value.scrollTop = scrollMessages.value.scrollHeight + 10;
+    scrollMessages.value.scrollTop = scrollMessages.value.scrollHeight;
   }
 }
 
