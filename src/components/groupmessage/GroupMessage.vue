@@ -151,7 +151,10 @@ async function initGroupChat(){
         //add message
         //setMessages(item=>[...item,{id: key,text : data.alias + ": " + decmsg}])
         messages.value = [...messages.value,{id: key,text : data.alias + ": " + decmsg}]
-        handleScrollDown();
+        setTimeout(()=>{
+          handleScrollDown();
+        },100);
+        
       }
     }
   }
@@ -200,12 +203,53 @@ function timestamp(){
   return year + "/" + (month) + "/" + date + ":" + hour+ ":" + minute+ ":" + second+ ":" + millisecond;        
 }
 
-function addGroupMessage(){
+async function addGroupMessage(){
+  let groupKey = (unref(groupMessageID) || "").trim();
+  let user = gun.user();
+  if(!user.is)return;
+  if(isEmpty(groupKey)){
+    console.log("EMPTY GROUP ID");
+    return;
+  }
+  let gkey = await gun.get(groupKey).then();
+  if(gkey == undefined){
+    console.log("NOT FOUND!");
+    return;
+  }
+  let guninfo = gun.get(groupKey).get('info');
+  let pub = await guninfo.get('pub').then();
+  let title = await guninfo.get('name').then();
+  let description = await guninfo.get('description').then();
+  let date = await guninfo.get('date').then();
+  let dataGroup ={
+    pub:pub,
+    name: title,
+    description:description,
+    date:date
+  };
+  console.log(dataGroup)
+  user.get('groupmessage').get(groupKey).get('info').put(dataGroup);
 
 }
 
-function removeGroupMessage(){
-
+async function removeGroupMessage(){
+  // need to check for admin delete
+  let groupKey = (unref(groupMessageID) || "").trim();
+  let user = gun.user();
+  if(!user.is)return;
+  if(isEmpty(groupKey)){
+    console.log("Empty!")
+    return;
+  }
+  let gkey = await gun.get(groupKey).then();
+  if(gkey == undefined){
+    console.log("NOT FOUND!");
+    return;
+  }
+  user.get('groupmessage').get(groupKey).put(null);
+  console.log("remove group message")
+  groupMessages.value=groupMessages.value.filter(item=>item.id != groupKey)
+  groupMessageID.value=""
 }
 
 function clickCreateGroupMessage(){
@@ -216,11 +260,80 @@ function clickDeleteGroupMessage(){
 
 }
 
-function clickGrantAlias(){
+async function clickGrantAlias(){
+  let groupKey = (unref(groupMessageID) || "").trim();
+  if(isEmpty(groupKey)){
+    console.log("EMPTY groupKey");
+    return;
+  }
+  let pkey = privateShareKey;
+  let pubKey = (unref(publicKey) || "").trim();
+  if(isEmpty(pubKey)){
+    console.log("EMPTY pubKey");
+    return;
+  }
+  let pownid = await gun.get(groupKey).get('info').get('pub').then();
+  if(pownid == pubKey){
+    console.log("owner!");
+    return;
+  }
+  let user = gun.user();
+  let pair = user._.sea;
+  let to = gun.user(pubKey);
+  let who = await to.get('alias').then();
 
+  if(!who)return;
+
+  if(!pkey)return;
+
+  let pub = await to.get('pub').then();
+  let epub = await to.get('epub').then();
+  let dh = await SEA.secret(epub, pair);
+  let enc = await SEA.encrypt(pkey, dh);
+
+  user.get('groupmessage')
+    .get(groupKey)
+    .get('pub')
+    .get(pub).put(enc);
+
+  console.log(pkey);
+  console.log("finish grant!", pub);
 }
 
-function clickRevokeAlias(){
+async function clickRevokeAlias(){
+  let groupKey = (unref(groupMessageID) || "").trim();
+  if(isEmpty(groupKey)){
+    console.log("EMPTY groupKey");
+    return;
+  }
+
+  let pkey = privateShareKey;
+  let pubKey = (unref(publicKey) || "").trim();
+  if(isEmpty(pubKey)){
+    console.log("EMPTY pubKey");
+    return;
+  }
+  let pownid = await gun.get(groupKey).get('info').get('pub').then();
+  if(pownid == pubKey){
+    console.log("owner!");
+    return;
+  }
+  let user = gun.user();
+  //let pair = user._.sea;
+  let to = gun.user(pubKey);
+  let who = await to.get('alias').then();
+
+  if(!who)return;
+
+  if(!pkey)return;
+
+  let pub = await to.get('pub').then();
+  user.get('groupmessage')
+    .get(groupKey)
+    .get('pub')
+    .get(pub).put(null);
+  console.log(pkey);
+  console.log("finish revoke!", pub);
 
 }
 
@@ -235,7 +348,9 @@ onUnmounted(()=>{
 function handleScrollDown(){
   //console.log("??scrollMessages.value")
   //console.log(scrollMessages.value)
-  scrollMessages.value.scrollTop = scrollMessages.value.scrollHeight;
+  if((scrollMessages.value)&&(scrollMessages.value?.scrollHeight!=null)){
+    scrollMessages.value.scrollTop = scrollMessages.value.scrollHeight + 10;
+  }
 }
 
 function handleScroll(e){
@@ -266,7 +381,7 @@ function handleScroll(e){
       <div>
         <button @click="clickDeleteGroupMessage"> Delete </button>
         <label>Public Key:</label>
-        <input/>
+        <input v-model="publicKey" @change="(e)=>publicKey=e.target.value"/>
         <button @click="clickGrantAlias"> Grant </button>
         <button @click="clickRevokeAlias"> Revoke </button>
       </div>
@@ -276,7 +391,7 @@ function handleScroll(e){
         <div v-for="item in messages" :key="item.id"> {{item.text}} </div>
       </div>
       <div id="CHATBOX" style="height:18px"> 
-        <input v-model="message" @change="(e)=>message=e.target.value" /><button @click="sendMessage">Send</button>
+        <input v-model="message" @change="(e)=>message=e.target.value" v-on:keyup.enter="sendMessage"/><button @click="sendMessage">Send</button>
       </div>
     </div>
   </div>
