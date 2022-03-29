@@ -6,10 +6,12 @@ import { GunInjectKey } from '../gun/GunKeys.mjs';
 
 const gun = inject(GunInjectKey);
 
-const isAdmin = ref(true)
+const isAdmin = ref(false)
 const publicKey = ref("")
 const groupMessageID = ref("")
 const groupMessages = ref([])
+
+const isJoinGroup = ref(false)
 
 const message = ref("");
 const messages = ref([]);
@@ -96,6 +98,7 @@ async function initGroupChat(){
   console.log(groupKey)
   if(isEmpty(groupKey)){
     console.log("EMPTY");
+    isJoinGroup.value=false;
     return;
   }
   console.log("groupKey:",groupKey);
@@ -106,14 +109,20 @@ async function initGroupChat(){
   let title = await gun.get(groupKey).get('info').get('name').then();
   if(!pub){
     console.log('init group chat id not found!')
+    isJoinGroup.value=false;
     return;
   }
   //UI element
   //admin check
-  if(pub == user.is.pub){
-
+  console.log("AMDIN::::")
+  console.log(user.is.pub)
+  console.log(pub)
+  if(pub.trim() == user.is.pub.trim()){
+    console.log("Admin True")
+    isAdmin.value=true
   }else{ // member
-
+    console.log("Admin false")
+    isAdmin.value=false
   }
 
   let to = gun.user(pub);
@@ -129,6 +138,7 @@ async function initGroupChat(){
   if(dec==null){
     console.log("NULL SHARE KEY!");
     //setisRoom(false);
+    isJoinGroup.value=false;
     return;
   }
   privateShareKey = dec;
@@ -167,7 +177,7 @@ async function initGroupChat(){
 
   gunGroupMessage.get('message').get({'.': {'>': timestring},'%': 50000}).map().once(qcallback);
   console.log('END GROUP CHAT LISTEN',groupKey)
-
+  isJoinGroup.value=true;
 }
 //Send Message
 async function sendMessage(){
@@ -362,31 +372,41 @@ function handleScroll(e){
     //console.log("scroll???")
   //}
 }
+
+function copyGroupID(){
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(groupMessageID.value);
+}
+
 </script>
 <template>
   <div style="height:calc(100% - 18px)">
     <div>
-      <label> Group Message ID: </label>
-      <input v-model="groupMessageID" @change="(e)=>groupMessageID=e.target.value" size="30" />
-      <select v-model="groupMessageID" @change="(e)=>groupMessageID=e.target.value">
-        <option value="" >Select Group ID</option>
-        <option v-for="item in groupMessages" :key="item.id" :value="item.id" >{{item.name}}</option>
-      </select>
-      <button @click="clickJoin"> Join </button>
-      <button @click="addGroupMessage"> Add </button>
-      <button @click="removeGroupMessage"> Remove </button>
-      <button @click="clickCreateGroupMessage"> Create </button>
-    </div>
-    
-    <template v-if="isAdmin">
-      <div>
+      <label> Group ID: </label>
+      <template v-if="isJoinGroup==false">
+        <input v-model="groupMessageID" @change="(e)=>groupMessageID=e.target.value" size="30" />
+        <select v-model="groupMessageID" @change="(e)=>groupMessageID=e.target.value">
+          <option value="" >Select Group ID</option>
+          <option v-for="item in groupMessages" :key="item.id" :value="item.id" >{{item.name}}</option>
+        </select>
+        <button @click="clickJoin"> Join </button>
+        <button @click="addGroupMessage"> Add </button>
+        <button @click="removeGroupMessage"> Remove </button>
+        <button @click="clickCreateGroupMessage"> Create </button>
         <button @click="clickDeleteGroupMessage"> Delete </button>
+      </template>
+      <template v-else>
+        <input v-model="groupMessageID" readonly />
+        <button @click="copyGroupID"> Copy </button>
+      </template>
+      <template v-if="isAdmin">
         <label>Public Key:</label>
         <input v-model="publicKey" @change="(e)=>publicKey=e.target.value"/>
         <button @click="clickGrantAlias"> Grant </button>
         <button @click="clickRevokeAlias"> Revoke </button>
-      </div>
-    </template>
+      </template>
+    </div>
+
     <div style="height:calc( 100% - 2*18px)">
       <div ref="scrollMessages" id="CHATMESSAGEs" v-on:scroll.passive="handleScroll" style="height:calc( 100% - 18px);overflow-y: scroll;"> 
         <div v-for="item in messages" :key="item.id"> {{item.text}} </div>
