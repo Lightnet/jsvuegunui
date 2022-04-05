@@ -12,7 +12,7 @@ import App from './App.vue';
 import { createSSRApp  } from 'vue';
 import { createRouter } from './router.mjs';
 import gunPlugin from "./components/gun/gunPlugin.mjs";
-
+import notifyPlugin from "./components/notify/notifyPlugin.mjs"
 // SSR requires a fresh app instance per request, therefore we export a function
 // that creates a fresh app instance. If using Vuex, we'd also be creating a
 // fresh store here.
@@ -24,6 +24,7 @@ export function createApp() {
     , localStorage: false
     , isDebug:true
   });
+  app.use(notifyPlugin);
   const router = createRouter()
   app.use(router)
   return { app, router }

@@ -13,7 +13,5 @@ const gun = inject(GunInjectKey);
   <!---->
   </div>
 </template>
-
 <style>
-
 </style>

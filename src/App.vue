@@ -8,6 +8,7 @@ import { inject, ref } from "vue";
 import { AUTHSTATUSInjectKey, GunInjectKey} from "./components/gun/GunKeys.mjs";
 import TimeClock from "./components/utilities/TimeClock.vue"
 import ViewSeaTool from "./components/seatools/ViewSeaTool.vue";
+import NotifyManager from "./components/notify/NotifyManager.vue";
 console.log("SSR CLIENT APP")
 const authStatus = inject(AUTHSTATUSInjectKey);
 //const gun = inject(GunInjectKey);
@@ -61,11 +62,7 @@ function onCloseModal1(){
       </Suspense>
     </router-view>
   </div>
-  <!--
-  <my-modal :isMobile="false" >
-    <view-sea-tool/>
-  </my-modal>
-  -->
+  <NotifyManager></NotifyManager>
 </template>
 <style>
 </style>

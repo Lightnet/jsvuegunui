@@ -5,12 +5,13 @@
 */
 import { SIGNINInjectKey, AUTHSTATUSInjectKey} from "./GunKeys.mjs";
 import { routerKey } from "vue-router";
-
+//const notify = inject('notify');
 export default {
   inject:{
     login:{from:SIGNINInjectKey},
     router:{from:routerKey},
     authStatus:{from:AUTHSTATUSInjectKey},
+    notify:{from:'notify'},
   },
   data() {
     return {
@@ -20,19 +21,28 @@ export default {
     }
   },
   mounted(){
-    console.log("MOUNT")
-    console.log(this.$refs.inputRef)
+    //console.log("MOUNT")
+    //console.log(this.$refs.inputRef)
     this.$refs.inputRef.focus()
   },
   methods: {
     async clickLogin(){
       try{
         let status = await this.login(this.username, this.passphrase);
-        console.log("status")
-        console.log(status)
+        //console.log("status")
+        //console.log(status)
         this.status = "auth";
+        this.notify({
+          type:"success",
+          text:"Login Auth!"
+        })
+        
       }catch(e){
-        console.log(e)
+        //console.log(e)
+        this.notify({
+          type:"error",
+          text:e
+        })
         this.status = e;
       }
     },
